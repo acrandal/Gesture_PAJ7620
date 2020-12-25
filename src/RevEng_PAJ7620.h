@@ -115,6 +115,7 @@ typedef enum {
 #define PAJ7620_ADDR_WAVE_COUNT           (PAJ7620_ADDR_BASE + 0xB7)  // R
 #define PAJ7620_ADDR_GES_RESULT_0         (PAJ7620_ADDR_BASE + 0x43)  // R
 #define PAJ7620_ADDR_GES_RESULT_1         (PAJ7620_ADDR_BASE + 0x44)  // R
+#define PAJ7620_ADDR_CURSOR_INT           (PAJ7620_ADDR_BASE + 0x44)  // R
 
 // REGISTER BANK 1
 #define PAJ7620_ADDR_PS_GAIN              (PAJ7620_ADDR_BASE + 0x44)  // RW
@@ -151,6 +152,13 @@ typedef enum {
 #define GES_ANTI_CLOCKWISE_FLAG           0x80
 #define GES_WAVE_FLAG                     0x01      // Read from Bank0 - 0x44
 
+// Return values for cursor interrupt/status for cursor mode
+//  Read from Bank 0, reg 0x44
+#define CUR_HAS_OBJECT                    0x04      // Bit 2 - 0000 0100
+#define CUR_NO_OBJECT                     0x80      // Bit 7 - 1000 0000
+
+
+#define INIT_CURSOR_REG_ARRAY_SIZE (sizeof(initCursorRegisterArray)/sizeof(initCursorRegisterArray[0]))
 
 #ifdef PROGMEM_COMPATIBLE
 const unsigned short initCursorRegisterArray[] PROGMEM = {
@@ -445,6 +453,10 @@ class RevEng_PAJ7620
 
     void disable();                 // Suspend interrupts (both pin and registers)
     void enable();                  // Resume interrupts (both pin and registers)
+
+    void setGestureMode();          // Put sensor into gesture mode
+    void setCursorMode();           // Put sensor into cursor mode
+    bool hasCursor();               // Cursor object in view
 
   private:
     unsigned long gestureEntryTime; // User set gesture entry delay in ms (default: 0)
