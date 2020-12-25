@@ -253,7 +253,44 @@ void RevEng_PAJ7620::setCursorMode()
 
 /****************************************************************
 ****************************************************************/
-bool RevEng_PAJ7620::hasCursor()
+int RevEng_PAJ7620::getCursorX()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_CURSOR_X_LOW, 1, &data0);
+  readRegister(PAJ7620_ADDR_CURSOR_X_HIGH, 1, &data1);
+  data1 &= 0x0F;      // Mask off high bits (unused)
+  result |= data1;
+  result << 8;
+  result |= data0;
+
+  return result;
+}
+
+/****************************************************************
+****************************************************************/
+int RevEng_PAJ7620::getCursorY()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_CURSOR_Y_LOW, 1, &data0);
+  readRegister(PAJ7620_ADDR_CURSOR_Y_HIGH, 1, &data1);
+  data1 &= 0x0F;      // Mask off high bits (unused)
+  result |= data1;
+  result << 8;
+  result |= data0;
+
+  return result;
+}
+
+
+/****************************************************************
+****************************************************************/
+bool RevEng_PAJ7620::isCursorInView()
 {
   bool result = false;
   uint8_t data = 0x00;

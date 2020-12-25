@@ -20,6 +20,11 @@ setGestureExitTime KEYWORD2
 getWaveCount KEYWORD2
 disable KEYWORD2
 enable KEYWORD2
+setGestureMode KEYWORD2
+setCursorMode KEYWORD2
+isCursorInView KEYWORD2
+getCursorX KEYWORD2
+getCursorY KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

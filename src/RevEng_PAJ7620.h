@@ -115,6 +115,12 @@ typedef enum {
 #define PAJ7620_ADDR_WAVE_COUNT           (PAJ7620_ADDR_BASE + 0xB7)  // R
 #define PAJ7620_ADDR_GES_RESULT_0         (PAJ7620_ADDR_BASE + 0x43)  // R
 #define PAJ7620_ADDR_GES_RESULT_1         (PAJ7620_ADDR_BASE + 0x44)  // R
+
+// Cursor Registers - Bank 0
+#define PAJ7620_ADDR_CURSOR_X_LOW         (PAJ7620_ADDR_BASE + 0x3B)  // R
+#define PAJ7620_ADDR_CURSOR_X_HIGH        (PAJ7620_ADDR_BASE + 0x3C)  // R
+#define PAJ7620_ADDR_CURSOR_Y_LOW         (PAJ7620_ADDR_BASE + 0x3D)  // R
+#define PAJ7620_ADDR_CURSOR_Y_HIGH        (PAJ7620_ADDR_BASE + 0x3E)  // R
 #define PAJ7620_ADDR_CURSOR_INT           (PAJ7620_ADDR_BASE + 0x44)  // R
 
 // REGISTER BANK 1
@@ -456,7 +462,10 @@ class RevEng_PAJ7620
 
     void setGestureMode();          // Put sensor into gesture mode
     void setCursorMode();           // Put sensor into cursor mode
-    bool hasCursor();               // Cursor object in view
+    bool isCursorInView();          // Cursor object in view
+
+    int getCursorX();               // Get cursor's X axis location
+    int getCursorY();               // Get cusors's Y axis location
 
   private:
     unsigned long gestureEntryTime; // User set gesture entry delay in ms (default: 0)
