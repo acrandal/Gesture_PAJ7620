@@ -42,10 +42,9 @@
 
 
 /****************************************************************
-   Function Name: begin
-   Description: PAJ7620 device I2C connect and initialize on default Wire bus
-   Parameters: none
-   Return: error code: 0 (false); success: return 1 (true)
+   \details PAJ7620 device I2C connect and initialize on default Wire bus
+   \param none
+   \return error code: 0 (false); success: return 1 (true)
 ****************************************************************/
 uint8_t RevEng_PAJ7620::begin()
 {
@@ -53,13 +52,17 @@ uint8_t RevEng_PAJ7620::begin()
 }
 
 /****************************************************************
-   Function Name: begin(TwoWire *)
-   Description:  PAJ7620 device I2C connect and initialize
-     Override version: Takes a TwoWire pointer allowing the user to pass
+   \details PAJ7620 device I2C connect and initialize
+
+   Override version:
+   \par
+   Takes a TwoWire pointer allowing the user to pass
       in a specified I2C bus for devices using alternatives to bus 0 such
       as: begin(&Wire1) or begin(&Wire2)
-   Parameters: none
-   Return: error code: 0 (false); success: return 1 (true)
+
+   \param chosenWireHandle A pointer to the Wire handle that should be
+     used to communicate with the PAJ7620
+   \return error code: 0 (false); success: return 1 (true)
 ****************************************************************/
 uint8_t RevEng_PAJ7620::begin(TwoWire *chosenWireHandle)
 {
@@ -89,10 +92,10 @@ uint8_t RevEng_PAJ7620::begin(TwoWire *chosenWireHandle)
 
 
 /****************************************************************
-   Function Name: writeRegister
-   Description:  PAJ7620 Write reg cmd
-   Parameters: addr:reg address; cmd:data (byte) to write
-   Return: error code; success: return 0
+   PAJ7620 Write register cmd
+   \param addr register address
+   \param cmd data (byte) to write
+   \return error code; success: return 0
 ****************************************************************/
 uint8_t RevEng_PAJ7620::writeRegister(uint8_t addr, uint8_t cmd)
 {
@@ -136,7 +139,6 @@ uint8_t RevEng_PAJ7620::readRegister(uint8_t addr, uint8_t qty, uint8_t data[])
 
 
 /****************************************************************
-   Function Name: getGesturesReg0
    Description:  Read the gestures interrupt vector #0
    Parameters: &uint8_t for storing value
    Return: error code (0 means no error)
@@ -208,7 +210,7 @@ void RevEng_PAJ7620::initializeDeviceSettings()
 {
   selectRegisterBank(BANK0);  // Config starts in BANK0
 
-  for (int i = 0; i < INIT_REG_ARRAY_SIZE; i++)
+  for (unsigned int i = 0; i < INIT_REG_ARRAY_SIZE; i++)
   {
     #ifdef PROGMEM_COMPATIBLE
       uint16_t word = pgm_read_word(&initRegisterArray[i]);
@@ -225,10 +227,9 @@ void RevEng_PAJ7620::initializeDeviceSettings()
 
 
 /****************************************************************
-   Function Name: disable
-   Description: Disables sensor for reading & interrupts
-   Parameters: none
-   Return: none
+   Disables sensor for reading & interrupts
+   \param none
+   \return none
 ****************************************************************/
 void RevEng_PAJ7620::disable()
 {
@@ -239,10 +240,9 @@ void RevEng_PAJ7620::disable()
 
 
 /****************************************************************
-   Function Name: enable
-   Description: Enables sensor for reading & interrupts
-   Parameters: none
-   Return: none
+   Enables sensor for reading & interrupts
+   \param none
+   \return none
 ****************************************************************/
 void RevEng_PAJ7620::enable()
 {
@@ -253,11 +253,10 @@ void RevEng_PAJ7620::enable()
 
 
 /****************************************************************
-   Function Name: setGestureEntryTime
-   Description: User setter for delay on gesture reads used in
-      forwardBackwardGestureCheck()
-   Parameters: unsigned long newGestureEntryTime
-   Return: none
+   Sets the delay on gesture reads for forward/backward gestures
+   \param newGestureEntryTime The time to wait before detecting
+     a forward/backward gesture
+   \return none
 ****************************************************************/
 void RevEng_PAJ7620::setGestureEntryTime(unsigned long newGestureEntryTime)
 {
@@ -266,12 +265,12 @@ void RevEng_PAJ7620::setGestureEntryTime(unsigned long newGestureEntryTime)
 
 
 /****************************************************************
-   Function Name: setGestureExitTime
-   Description: User setter for delay after gesture reads to 
+   Sets the delay after gesture reads to 
       allow the person to withdraw their hand and not cause a second
       gesture event to be thrown. 
-   Parameters: unsigned long newGestureExitTime
-   Return: none
+   \param newGestureExitTime The time to wait after a gesture
+     read
+   \return none
 ****************************************************************/
 void RevEng_PAJ7620::setGestureExitTime(unsigned long newGestureExitTime)
 {
@@ -279,12 +278,6 @@ void RevEng_PAJ7620::setGestureExitTime(unsigned long newGestureExitTime)
 }
 
 
-/****************************************************************
-   Function Name: setGameMode
-   Description: Put sensor into "game mode" - 240fps instead of 120fps
-   Parameters: none
-   Return: none
-****************************************************************/
 // void RevEng_PAJ7620::setGameMode()
 // {
   /*
@@ -294,7 +287,7 @@ void RevEng_PAJ7620::setGestureExitTime(unsigned long newGestureExitTime)
       forks of the Seeed version on GitHub.
         -- Aaron S. Crandall <crandall@gonzaga.edu>
   */
-    /**
+   /*
    * Setting normal mode or gaming mode at BANK1 register 0x65/0x66 R_IDLE_TIME[15:0]
    * T = 256/System CLK = 32us, 
    * Ex:
@@ -324,11 +317,11 @@ void RevEng_PAJ7620::setGestureExitTime(unsigned long newGestureExitTime)
 
 
 /****************************************************************
-   Function Name: clearGesture
-   Description: API call to clear current gesture interrupt vectors
-     NOTE: These vectors are set to zero in hardware after any reads
-   Parameters: none
-   Return: none
+   Clear current gesture interrupt vectors
+   \note These vectors are set to zero in hardware after any reads
+
+   \param none
+   \return none
 ****************************************************************/
 void RevEng_PAJ7620::clearGesture()
 {
@@ -339,10 +332,9 @@ void RevEng_PAJ7620::clearGesture()
 
 
 /****************************************************************
-   Function Name: getWaveCount
-   Description: Public API to get current count of waves by user
-   Parameters: none
-   Return: int quantity of waves (passes) over the sensor
+   Get current count of waves by user
+   \param none
+   \return quantity of waves (passes) over the sensor
 ****************************************************************/
 int RevEng_PAJ7620::getWaveCount()
 {
@@ -382,11 +374,10 @@ Gesture RevEng_PAJ7620::forwardBackwardGestureCheck(Gesture initialGesture)
 
 
 /****************************************************************
-   Function Name: readGesture
-   Description: Read the latest gesture from the sensor
-     -- Clears interrupt vector of gestures upon read
-   Parameters: none
-   Return: int (Gesture enum) - gesture found or no gesture found (0)
+   Read the latest gesture from the sensor.
+   Clears interrupt vector of gestures upon read
+   \param none
+   \return Gesture found or \link GES_NONE Gesture::GES_NONE \endlink if no gesture found
 ****************************************************************/
 Gesture RevEng_PAJ7620::readGesture()
 {
