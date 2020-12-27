@@ -24,7 +24,7 @@ jobs:
          with:
            github_token: ${{ secrets.GITHUB_TOKEN }}
            publish_dir: ./doxygen/html
-       - uses: actions/upload-artiface@v2
+       - uses: actions/upload-artifact@v2
          name: Upload all Doxygen artifacts
          with:
            name: doxygen-docs
