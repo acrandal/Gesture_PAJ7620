@@ -5,9 +5,13 @@ on:
     branches:
       - main
       - master
+      - develop
   release:
     types:
       - created
+
+env:
+  DEPLOY_DIR: "latest"
 
 jobs:
   "generate_reveng_paj7620_docs":
@@ -19,11 +23,27 @@ jobs:
          with:
            doxyfile-path: "./Doxyfile"
            working-directory: "."
+       - name: Switch to stable version
+         if: startsWith(github.ref, 'main') || startsWith(github.ref, 'master')
+         run: echo "DEPLOY_DIR=${GITHUB_REF##refs/branches}" >> $GITHUB_ENV
+       - name: Determine If Doc Version Is Tag
+         id: prepare_tag
+         if: startsWith(github.ref, 'refs/tags/')
+         run: |
+           TAG_NAME="${GITHUB_REF##refs/tags/}"
+           echo "DEPLOY_DIR=${TAG_NAME}" >> $GITHUB_ENV
+           echo "::set-output name=tag_name::${TAG_NAME}"
+           echo "::set-output name=deploy_tag_name::docs-deploy-${TAG_NAME}"
+         
        - uses: peaceiris/actions-gh-pages@v3
          name: Publish to GitHub pages
          with:
            github_token: ${{ secrets.GITHUB_TOKEN }}
            publish_dir: ./doxygen/html
+           destination_dir: "${{ env.DEPLOY_DIR }}"
+           commit_message: "Publish Docs ${{ env.DEPLOY_DIR }}"
+           tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
+           tag_message: "Docs Deployment ${{ steps.prepare_tag.outputs.tag_name }}"
        - uses: actions/upload-artifact@v2
          name: Upload all Doxygen artifacts
          with:
