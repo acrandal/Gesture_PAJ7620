@@ -171,6 +171,7 @@ The instantiation of the class is the same, and once it's initialized you can ch
 - CI build and test framework, currently building on Linux, MacOS, and Windows
 - Added APIs for inverting the X and Y axes - works in all modes
 
+
 #### Version 1.3.0 ####
 - Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu>.
 - Library now has a begin(TwoWire *bus) interface to allow user to pass a chosen TwoWire bus object for handling situations where they're using a second (or third) I2C bus on their device. For example: sensor.begin(&Wire1).
