@@ -4,15 +4,16 @@
 
   \copyright
   \parblock
-  Copyright (c) 2015 seeed technology inc.
-  Website    : www.seeed.cc
-  Author     : Wuruibin & Xiangnan
-  Modified Time: June 2015
+  - Copyright (c) 2015 seeed technology inc.
+  - Website    : www.seeed.cc
+  - Author     : Wuruibin & Xiangnan
+  - Modified Time: June 2015
 
-  2017 - Modified by MarcFinns to encapsulate in class without global variables
-  2020 - PROGMEM code adapted from Jaycar-Electronics' work
-  2020 - Modified by Aaron S. Crandall <crandall@gonzaga.edu>
-  2020 - Modified by Sean Kallaher (GitHub: skallaher)
+  Additional contributions:
+  - 2017 - Modified by MarcFinns to encapsulate in class without global variables  
+  - 2020 - PROGMEM code adapted from Jaycar-Electronics' work  
+  - 2020 - Modified by Aaron S. Crandall <crandall@gonzaga.edu>  
+  - 2020 - Modified by Sean Kallaher (GitHub: skallaher)  
 
   Version: 1.4.0
 

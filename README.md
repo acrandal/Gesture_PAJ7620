@@ -3,8 +3,9 @@
 ## Description ##
 
 The library here is for the PAJ7620 sensor with an I2C interface. The device also has several variants such as the PAJ7620U2 and PAJ7620F2.
-The device provides simple motion-based gesture recognition.
-It can recognize 9 hand moving gestures including:
+The device provides simple motion-based gesture recognition, object tracking (cursor mode), and other (unimplemented so far) modes.
+
+In gesture mode it can recognize 9 hand moving gestures including:
 - move up
 - move down
 - move left
@@ -158,6 +159,9 @@ The instantiation of the class is the same, and once it's initialized you can ch
 > sensor.getCursorX();  
 > sensor.getCursorY();  
 
+The program can return to gesture mode with the setGestureMode call:
+> sensor.setGestureMode();
+
 ---
 
 ## Library History ##
@@ -170,6 +174,8 @@ The instantiation of the class is the same, and once it's initialized you can ch
 - GitHub pages documentation updates on master merges and version tags
 - CI build and test framework, currently building on Linux, MacOS, and Windows
 - Added APIs for inverting the X and Y axes - works in all modes
+- Slimmed down the initialization array from 440 bytes to 100 bytes
+- Created a proper gesture mode register array to allow returning to gesture mode from cursor mode
 
 
 #### Version 1.3.0 ####
