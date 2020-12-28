@@ -165,10 +165,11 @@ The instantiation of the class is the same, and once it's initialized you can ch
 #### Version 1.4.0 ####
 
 - Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu> and [Sean Kallaher](https://github.com/skallaher).
-- Developed cursor mode - a object tracking on a (x,y) coordinate system
+- Developed cursor mode - an object tracking on a (x,y) coordinate system
 - Doxygen documentation system put in place
 - GitHub pages documentation updates on master merges and version tags
 - CI build and test framework, currently building on Linux, MacOS, and Windows
+- Added APIs for inverting the X and Y axes - works in all modes
 
 #### Version 1.3.0 ####
 - Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu>.

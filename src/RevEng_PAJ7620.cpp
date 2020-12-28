@@ -291,7 +291,6 @@ int RevEng_PAJ7620::getCursorY()
   return result;
 }
 
-
 /****************************************************************
 ****************************************************************/
 bool RevEng_PAJ7620::isCursorInView()
@@ -306,6 +305,30 @@ bool RevEng_PAJ7620::isCursorInView()
     default:              result = false;   break;
   }
   return result;
+}
+
+/****************************************************************
+****************************************************************/
+void RevEng_PAJ7620::invertXAxis()
+{
+  uint8_t data = 0x00;
+  selectRegisterBank(BANK1);
+  readRegister(PAJ7620_ADDR_LENS_ORIENTATION, 1, &data);
+  data ^= 1UL << 0;               // Bit[0] controls X axis
+  writeRegister(PAJ7620_ADDR_LENS_ORIENTATION, data);
+  selectRegisterBank(BANK0);
+}
+
+/****************************************************************
+****************************************************************/
+void RevEng_PAJ7620::invertYAxis()
+{
+  uint8_t data = 0x00;
+  selectRegisterBank(BANK1);
+  readRegister(PAJ7620_ADDR_LENS_ORIENTATION, 1, &data);
+  data ^= 1UL << 1;                 // Bit[1] controls Y axis
+  writeRegister(PAJ7620_ADDR_LENS_ORIENTATION, data);
+  selectRegisterBank(BANK0);
 }
 
 /****************************************************************

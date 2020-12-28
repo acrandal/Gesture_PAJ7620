@@ -157,6 +157,10 @@
 #define PAJ7620_ADDR_OP_TO_S2_STEP_1      (PAJ7620_ADDR_BASE + 0x6E)  // RW
 /** \note Read/Write */
 #define PAJ7620_ADDR_OPERATION_ENABLE     (PAJ7620_ADDR_BASE + 0x72)  // RW
+
+// Cursor Registers - Bank 1
+/** \note Read/Write */
+#define PAJ7620_ADDR_LENS_ORIENTATION     (PAJ7620_ADDR_BASE + 0x04)  // RW
 /**@}*/
 
 /** @name Register bank IDs */
@@ -557,6 +561,12 @@ class RevEng_PAJ7620
 
     int getCursorX();               // Get cursor's X axis location
     int getCursorY();               // Get cusors's Y axis location
+
+    // Note: Experimentation with inverting the sensor's axis has led to some odd
+    //  behavior. Notably, the physical aim of the sensor changes to offcenter.
+    //  No, I don't know why -- Crandall
+    void invertXAxis();             // Invert (toggle) sensor's X (vertical) axis
+    void invertYAxis();             // Invert (toggle) sensors' Y (vertical) axis
 
   private:
     unsigned long gestureEntryTime; // User set gesture entry delay in ms (default: 0)
