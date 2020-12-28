@@ -20,3 +20,6 @@ vendor
 *.tar.gz
 
 *.swp
+
+# Ignore doxygen results
+doxygen/

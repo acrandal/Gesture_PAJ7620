@@ -1,0 +1,31 @@
+name: Generate Doxygen Docs and Publish Pages
+
+on: 
+  push:
+    branches:
+      - main
+      - master
+  release:
+    types:
+      - created
+
+jobs:
+  "generate_reveng_paj7620_docs":
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v2
+       - uses: mattnotmitt/doxygen-action@v1.1.0
+         name: Generate docs
+         with:
+           doxyfile-path: "./Doxyfile"
+           working-directory: "."
+       - uses: peaceiris/actions-gh-pages@v3
+         name: Publish to GitHub pages
+         with:
+           github_token: ${{ secrets.GITHUB_TOKEN }}
+           publish_dir: ./doxygen/html
+       - uses: actions/upload-artifact@v2
+         name: Upload all Doxygen artifacts
+         with:
+           name: doxygen-docs
+           path: doxygen/**

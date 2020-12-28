@@ -1,6 +1,9 @@
-/*
-  RevEng_PAJ7620.h
+/**
+  \file RevEng_PAJ7620.h
+  \author Aaron S. Crandall
 
+  \copyright
+  \parblock
   Copyright (c) 2015 seeed technology inc.
   Website    : www.seeed.cc
   Author     : Wuruibin & Xiangnan
@@ -36,9 +39,8 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
-*/
+  \endparblock
 
-/*
   PAJ7620U2 Sensor data sheet for reference found here:
     https://datasheetspdf.com/pdf-file/1309990/PixArt/PAJ7620U2/1
 */
@@ -60,61 +62,63 @@
   */
 #endif
 
-/* 
-  Gesture result definitions 
-  - Used as return value from readGesture call
- */
-enum Gesture {
-  GES_NONE = 0,
-  GES_UP,
-  GES_DOWN,
-  GES_LEFT,
-  GES_RIGHT,
-  GES_FORWARD,
-  GES_BACKWARD,
-  GES_CLOCKWISE,
-  GES_ANTICLOCKWISE,
-  GES_WAVE
-};
+/** @name Device Constants */
+/**@{*/
 
-/*
-  Bank_e used for selecting PAJ7620 memory bank to read/write from
- */
-typedef enum {
-  BANK0 = 0,
-  BANK1,
-} Bank_e;
-
-
-// DEVICE'S I2C ID - defined by manufacturer
+/** DEVICE'S I2C ID - defined by manufacturer */
 #define PAJ7620_I2C_BUS_ADDR              0x73
 
-// Device's hard coded ID values
-#define PAJ7620_PART_ID_LSB               0x20
-#define PAJ7620_PART_ID_MSB               0x76
 
-// Base address for accessing registers
+/** Base address for accessing registers */
 #define PAJ7620_ADDR_BASE                 0x00
 
-// REGISTER BANK SELECT
+/** Register bank select address */
 #define PAJ7620_REGISTER_BANK_SEL         (PAJ7620_ADDR_BASE + 0xEF)  // W
+/**@}*/
 
-// REGISTER BANK 0
+/** @name ID values 
+*   Device's hard coded ID values
+*/
+/**@{*/
+#define PAJ7620_PART_ID_LSB               0x20
+#define PAJ7620_PART_ID_MSB               0x76
+/**@}*/
+
+/** @name REGISTER BANK 0
+ *  Addresses used within register bank 0
+ */
+/**@{*/
+/** \note Readonly */
 #define PAJ7620_ADDR_PART_ID_0            (PAJ7620_ADDR_BASE + 0x00)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_PART_ID_1            (PAJ7620_ADDR_BASE + 0x01)  // R
+/** \note Write only */
 #define PAJ7620_ADDR_SUSPEND_CMD          (PAJ7620_ADDR_BASE + 0x03)  // W
+/** \note Read/Write */
 #define PAJ7620_ADDR_GES_PS_DET_MASK_0    (PAJ7620_ADDR_BASE + 0x41)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_GES_PS_DET_MASK_1    (PAJ7620_ADDR_BASE + 0x42)  // RW
+/** \note Readonly */
 #define PAJ7620_ADDR_GES_PS_DET_FLAG_0    (PAJ7620_ADDR_BASE + 0x43)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_GES_PS_DET_FLAG_1    (PAJ7620_ADDR_BASE + 0x44)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_STATE_INDICATOR      (PAJ7620_ADDR_BASE + 0x45)  // R
+/** \note Read/Write */
 #define PAJ7620_ADDR_PS_HIGH_THRESHOLD    (PAJ7620_ADDR_BASE + 0x69)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_PS_LOW_THRESHOLD     (PAJ7620_ADDR_BASE + 0x6A)  // RW
+/** \note Readonly */
 #define PAJ7620_ADDR_PS_APPROACH_STATE    (PAJ7620_ADDR_BASE + 0x6B)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_PS_RAW_DATA          (PAJ7620_ADDR_BASE + 0x6C)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_WAVE_COUNT           (PAJ7620_ADDR_BASE + 0xB7)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_GES_RESULT_0         (PAJ7620_ADDR_BASE + 0x43)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_GES_RESULT_1         (PAJ7620_ADDR_BASE + 0x44)  // R
+/**@}*/
 
 // Cursor Registers - Bank 0
 #define PAJ7620_ADDR_CURSOR_X_LOW         (PAJ7620_ADDR_BASE + 0x3B)  // R
@@ -124,39 +128,84 @@ typedef enum {
 #define PAJ7620_ADDR_CURSOR_INT           (PAJ7620_ADDR_BASE + 0x44)  // R
 
 // REGISTER BANK 1
+/** @name REGISTER BANK 1
+ *  Addresses used within register bank 1
+ */
+/**@{*/
+/** \note Read/Write */
 #define PAJ7620_ADDR_PS_GAIN              (PAJ7620_ADDR_BASE + 0x44)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_IDLE_S1_STEP_0       (PAJ7620_ADDR_BASE + 0x67)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_IDLE_S1_STEP_1       (PAJ7620_ADDR_BASE + 0x68)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_IDLE_S2_STEP_0       (PAJ7620_ADDR_BASE + 0x69)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_IDLE_S2_STEP_1       (PAJ7620_ADDR_BASE + 0x6A)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_OP_TO_S1_STEP_0      (PAJ7620_ADDR_BASE + 0x6B)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_OP_TO_S1_STEP_1      (PAJ7620_ADDR_BASE + 0x6C)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_OP_TO_S2_STEP_0      (PAJ7620_ADDR_BASE + 0x6D)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_OP_TO_S2_STEP_1      (PAJ7620_ADDR_BASE + 0x6E)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_OPERATION_ENABLE     (PAJ7620_ADDR_BASE + 0x72)  // RW
+/**@}*/
 
-// PAJ7620_REGISTER_BANK_SEL
+/** @name Register bank IDs */
+/**@{*/
 #define PAJ7620_BANK0                     0x00
 #define PAJ7620_BANK1                     0x01
+/**@}*/
 
-// PAJ7620_ADDR_SUSPEND_CMD
+/** @name Suspend Control commands
+* Written to #PAJ7620_ADDR_SUSPEND_CMD
+* */
+/**@{*/
+/** Wakeup the device */
 #define PAJ7620_I2C_WAKEUP                0x01
+/** Suspend the device */
 #define PAJ7620_I2C_SUSPEND               0x00
+/**@}*/
 
-// PAJ7620_ADDR_OPERATION_ENABLE
+/** @name Enable Control commands
+ * Written to #PAJ7620_ADDR_OPERATION_ENABLE
+ */
+/**@{*/
+/** Enable the device to start reading data*/
 #define PAJ7620_ENABLE                    0x01
+/** Disable the device and stop reading data*/
 #define PAJ7620_DISABLE                   0x00
+/**@}*/
 
-// Return values from gesture I2C memory reads in Bank 0 - 0x43 & 0x44
+/** @name Gesture Bit Masks
+ * Return values from gesture I2C memory reads in Bank 0 - 0x43 & 0x44
+ *
+ * \see #PAJ7620_ADDR_GES_RESULT_0
+ * \see #PAJ7620_ADDR_GES_RESULT_1
+ */
+/**@{*/
+/** Bit set -> Up gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_UP_FLAG                       0x01
+/** Bit set -> Down gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_DOWN_FLAG                     0x02
+/** Bit set -> Left gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_LEFT_FLAG                     0x04
+/** Bit set -> Right gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_RIGHT_FLAG                    0x08
+/** Bit set -> Forward gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_FORWARD_FLAG                  0x10
+/** Bit set -> Backward gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_BACKWARD_FLAG                 0x20
+/** Bit set -> Clockwise gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_CLOCKWISE_FLAG                0x40
+/** Bit set -> Anticlockwise gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_ANTI_CLOCKWISE_FLAG           0x80
+/** Bit set -> Wave gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_1 */
 #define GES_WAVE_FLAG                     0x01      // Read from Bank0 - 0x44
+/**@}*/
 
 // Return values for cursor interrupt/status for cursor mode
 //  Read from Bank 0, reg 0x44
@@ -203,18 +252,46 @@ const unsigned short initCursorRegisterArray[] = {
               //  Where (0,0) is in upper left, positive down (Y) and right (X)
     0x7403,   // Enable cursor mode 0 - gesture, 3 - cursor, 5 - proximity
     0xEF00    // Set Bank 0 (parking it)
+
+/** 
+  Gesture result definitions.
+  Used as return value from readGesture call
+ */
+enum Gesture {
+  GES_NONE = 0,      /**< No gesture */
+  GES_UP,            /**< Upwards gesture */
+  GES_DOWN,	     /**< Downward gesture */
+  GES_LEFT,          /**< Leftward gesture */
+  GES_RIGHT,         /**< Rightward gesture */
+  GES_FORWARD,       /**< Forward gesture */
+  GES_BACKWARD,      /**< Backward gesture */
+  GES_CLOCKWISE,     /**< Clockwise circular gesture */
+  GES_ANTICLOCKWISE, /**< Anticlockwise circular gesture */
+  GES_WAVE           /**< Wave gesture */
 };
 
+/**
+  Used for selecting PAJ7620 memory bank to read/write from
+  \author Aaron S. Crandall
+ */
+typedef enum {
+  BANK0 = 0,
+  BANK1,
+} Bank_e;
+
+/** Generated size of the register init array */
 #define INIT_REG_ARRAY_SIZE (sizeof(initRegisterArray)/sizeof(initRegisterArray[0]))
 
-/*
-  Initializing Gesture I2C mode register addresses and values
-    NOTE: Has not been tested for SPI bus image mode
-  Changed to JayCar-Electronics PROGMEM approach from their fork
-    https://github.com/Jaycar-Electronics
-    Saves about 21% of SRAM on an Arduino Uno - Around 440 bytes
-  Values taken from PixArt reference documentation v0.8
-*/
+/*******************************************************
+* Initial Gesture I2C mode register addresses and values
+* \note Has not been tested for SPI bus image mode.
+*
+* Changed to JayCar-Electronics PROGMEM approach from <a href="https://github.com/Jaycar-Electronics">their fork</a>.
+* 
+* Saves about 21% of SRAM on an Arduino Uno - Around 440 bytes
+*
+* Values taken from PixArt reference documentation v0.8
+*******************************************************/
 #ifdef PROGMEM_COMPATIBLE
 const unsigned short initRegisterArray[] PROGMEM = {
 #else
@@ -441,8 +518,11 @@ const unsigned short initRegisterArray[] = {
     0x7E01};
 
 
-/*
-  PAJ7620 Device API class - As developed by RevEng Devs
+/**
+ * PAJ7620 Device API class - As developed by RevEng Devs
+ *
+ * Provides a user friendly interface to the PAJ7620 device
+ * \author Aaron S. Crandall
  */
 class RevEng_PAJ7620
 {
@@ -450,15 +530,18 @@ class RevEng_PAJ7620
     uint8_t begin();
     uint8_t begin(TwoWire * chosenWireHandle);    // Ex: begin(&Wire1)
 
+    /** @name Gesture mode controls */
+    /**@{*/
     Gesture readGesture();
     void clearGesture();
 
     void setGestureEntryTime(unsigned long newGestureEntryTime);
     void setGestureExitTime(unsigned long newGestureExitTime);
-    // void setGameMode(); // No documentation for this mode is available (yet)
 
     int getWaveCount();
+    /**@}*/
 
+    // void setGameMode(); // No documentation for this mode is available (yet)
     void disable();                 // Suspend interrupts (both pin and registers)
     void enable();                  // Resume interrupts (both pin and registers)
 
@@ -490,3 +573,4 @@ class RevEng_PAJ7620
 };
 
 #endif
+
