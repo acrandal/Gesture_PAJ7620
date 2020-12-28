@@ -44,4 +44,5 @@ var menudata={children:[
 {text:"Macros",url:"globals_defs.html",children:[
 {text:"g",url:"globals_defs.html#index_g"},
 {text:"i",url:"globals_defs.html#index_i"},
-{text:"p",url:"globals_defs.html#index_p"}]}]}]}]}
+{text:"p",url:"globals_defs.html#index_p"}]}]}]},
+{text:"Examples",url:"examples.html"}]}
