@@ -216,12 +216,12 @@
 #define CUR_NO_OBJECT                     0x80      // Bit 7 - 1000 0000
 
 
-#define INIT_CURSOR_REG_ARRAY_SIZE (sizeof(initCursorRegisterArray)/sizeof(initCursorRegisterArray[0]))
+#define SET_CURSOR_MODE_REG_ARRAY_SIZE (sizeof(setCursorModeRegisterArray)/sizeof(setCursorModeRegisterArray[0]))
 
 #ifdef PROGMEM_COMPATIBLE
-const unsigned short initCursorRegisterArray[] PROGMEM = {
+const unsigned short setCursorModeRegisterArray[] PROGMEM = {
 #else
-const unsigned short initCursorRegisterArray[] = {
+const unsigned short setCursorModeRegisterArray[] = {
 #endif
     0xEF00,   // Set Bank 0
     0x3229,   // Default  29  [0] Cursor use top - def 1
@@ -288,18 +288,84 @@ typedef enum {
 
 /*******************************************************
 * Initial Gesture I2C mode register addresses and values
-* \note Has not been tested for SPI bus image mode.
 *
 * Changed to JayCar-Electronics PROGMEM approach from <a href="https://github.com/Jaycar-Electronics">their fork</a>.
 * 
-* Saves about 21% of SRAM on an Arduino Uno - Around 440 bytes
+* Saves about 5% of SRAM on an Arduino Uno - Around 100 bytes
+* Reduced this from prior config array be removing fields setting to default values.
+* This saved around 330 bytes over the prior implementation.
 *
-* Values taken from PixArt reference documentation v0.8
+* Values taken from PixArt reference documentation v0.8 & v1.0 - see <a href="https://github.com/acrandal/RevEng_PAJ7620/wiki">wiki</a> for files
 *******************************************************/
 #ifdef PROGMEM_COMPATIBLE
 const unsigned short initRegisterArray[] PROGMEM = {
 #else
 const unsigned short initRegisterArray[] = {
+#endif
+    0xEF00,       // Bank 0
+    0x4100,       // Disable interrupts for first 8 gestures
+    0x4200,       // Disable wave (and other modes') interrupt(s)
+    0x3707,
+    0x3817,
+    0x3906,
+    0x4201,
+    0x462D,
+    0x470F,
+    0x483C,
+    0x4900,
+    0x4A1E,
+    0x4c22,
+    0x5110,
+    0x5E10,
+    0x6027,
+    0x8042,
+    0x8144,
+    0x8204,
+    0x8B01,
+    0x9006,
+    0x950A,
+    0x960C,
+    0x9705,
+    0x9A14,
+    0x9C3F,
+    0xA519,
+    0xCC19,
+    0xCD0B,
+    0xCE13,
+    0xCF64,
+    0xD021,
+    0xEF01,       // Bank 1
+    0x020F,
+    0x0310,
+    0x0402,
+    0x2501,
+    0x2739,
+    0x287F,
+    0x2908,
+    0x3EFF,
+    0x5E3D,
+    0x6596,
+    0x6797,
+    0x69CD,
+    0x6A01,
+    0x6D2C,
+    0x6E01,
+    0x7201,
+    0x7335,
+    0x7400,       // Set to gesture mode
+    0x7701,
+    0xEF00,       // Bank 0
+    0x41FF,       // Re-enable interrupts for first 8 gestures
+    0x4201        // Re-enable interrupts for wave gesture
+};
+
+/** Generated size of the register init array */
+#define INIT_REG_ARRAY_SIZE_OLD (sizeof(initRegisterArrayOld)/sizeof(initRegisterArrayOld[0]))
+
+#ifdef PROGMEM_COMPATIBLE
+const unsigned short initRegisterArrayOld[] PROGMEM = {
+#else
+const unsigned short initRegisterArrayOld[] = {
 #endif
     0xEF00,
     0x3229,
@@ -414,7 +480,7 @@ const unsigned short initRegisterArray[] = {
     0xE800,
     0xE900,
     0xEE07,
-    0xEF01,
+    0xEF01,       // Bank 1
     0x001E,
     0x011E,
     0x020F,
@@ -513,7 +579,7 @@ const unsigned short initRegisterArray[] = {
     0x7100,
     0x7201,
     0x7335,
-    0x7400,
+    0x7400,       // Set gesture mode
     0x7533,
     0x7631,
     0x7701,
@@ -562,7 +628,7 @@ const unsigned short setGestureModeRegisterArray[] = {
     0x7400,       // Set gesture mode
     0xEF00,       // Bank 0
     0x41FF,       // Re-enable interrupts for first 8 gestures
-    0x4201,       // Re-enable interrupts for wave gesture
+    0x4201        // Re-enable interrupts for wave gesture
 };
 
 /**

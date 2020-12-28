@@ -244,7 +244,7 @@ void RevEng_PAJ7620::setGestureMode()
 ****************************************************************/
 void RevEng_PAJ7620::setCursorMode()
 {
-  writeRegisterArray(initCursorRegisterArray, INIT_CURSOR_REG_ARRAY_SIZE);
+  writeRegisterArray(setCursorModeRegisterArray, SET_CURSOR_MODE_REG_ARRAY_SIZE);
 }
 
 
