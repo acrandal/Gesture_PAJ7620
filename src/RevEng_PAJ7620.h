@@ -266,7 +266,7 @@ const unsigned short initCursorRegisterArray[] = {
 enum Gesture {
   GES_NONE = 0,      /**< No gesture */
   GES_UP,            /**< Upwards gesture */
-  GES_DOWN,	     /**< Downward gesture */
+  GES_DOWN,	         /**< Downward gesture */
   GES_LEFT,          /**< Leftward gesture */
   GES_RIGHT,         /**< Rightward gesture */
   GES_FORWARD,       /**< Forward gesture */
@@ -278,7 +278,7 @@ enum Gesture {
 
 /**
   Used for selecting PAJ7620 memory bank to read/write from
-  \author Aaron S. Crandall
+  \author Wuruibin / seeed technology inc.
  */
 typedef enum {
   BANK0 = 0,
