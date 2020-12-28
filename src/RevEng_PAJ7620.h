@@ -56,6 +56,33 @@
 #define PROGMEM_COMPATIBLE
 #endif
 
+/** 
+  Gesture result definitions.
+  Used as return value from readGesture call
+ */
+enum Gesture {
+  GES_NONE = 0,      /**< No gesture */
+  GES_UP,            /**< Upwards gesture */
+  GES_DOWN,	         /**< Downward gesture */
+  GES_LEFT,          /**< Leftward gesture */
+  GES_RIGHT,         /**< Rightward gesture */
+  GES_FORWARD,       /**< Forward gesture */
+  GES_BACKWARD,      /**< Backward gesture */
+  GES_CLOCKWISE,     /**< Clockwise circular gesture */
+  GES_ANTICLOCKWISE, /**< Anticlockwise circular gesture */
+  GES_WAVE           /**< Wave gesture */
+};
+
+/**
+  Used for selecting PAJ7620 memory bank to read/write from
+  \author Wuruibin / seeed technology inc.
+ */
+typedef enum {
+  BANK0 = 0,
+  BANK1,
+} Bank_e;
+
+
 /** @name Device Constants */
 /**@{*/
 
@@ -257,31 +284,6 @@ const unsigned short setCursorModeRegisterArray[] = {
     0xEF00    // Set Bank 0 (parking it)
 };
 
-/** 
-  Gesture result definitions.
-  Used as return value from readGesture call
- */
-enum Gesture {
-  GES_NONE = 0,      /**< No gesture */
-  GES_UP,            /**< Upwards gesture */
-  GES_DOWN,	         /**< Downward gesture */
-  GES_LEFT,          /**< Leftward gesture */
-  GES_RIGHT,         /**< Rightward gesture */
-  GES_FORWARD,       /**< Forward gesture */
-  GES_BACKWARD,      /**< Backward gesture */
-  GES_CLOCKWISE,     /**< Clockwise circular gesture */
-  GES_ANTICLOCKWISE, /**< Anticlockwise circular gesture */
-  GES_WAVE           /**< Wave gesture */
-};
-
-/**
-  Used for selecting PAJ7620 memory bank to read/write from
-  \author Wuruibin / seeed technology inc.
- */
-typedef enum {
-  BANK0 = 0,
-  BANK1,
-} Bank_e;
 
 /** Generated size of the register init array */
 #define INIT_REG_ARRAY_SIZE (sizeof(initRegisterArray)/sizeof(initRegisterArray[0]))
@@ -402,6 +404,7 @@ const unsigned short setGestureModeRegisterArray[] = {
     0x4201        // Re-enable interrupts for wave gesture
 };
 
+
 /**
  * PAJ7620 Device API class - As developed by RevEng Devs
  *
@@ -465,4 +468,3 @@ class RevEng_PAJ7620
 };
 
 #endif
-
