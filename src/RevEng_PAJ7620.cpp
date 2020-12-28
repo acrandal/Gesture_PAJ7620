@@ -85,7 +85,7 @@ uint8_t RevEng_PAJ7620::begin(TwoWire *chosenWireHandle)
   }
 
   initializeDeviceSettings();         // Set registers up
-  setCursorMode();                    // Specifically set to gesture mode
+  setGestureMode();                   // Specifically set to gesture mode
 
   return 1;
 }
