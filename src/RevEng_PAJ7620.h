@@ -12,6 +12,7 @@
   2017 - Modified by MarcFinns to encapsulate in class without global variables
   2020 - PROGMEM code adapted from Jaycar-Electronics' work
   2020 - Modified by Aaron S. Crandall <crandall@gonzaga.edu>
+  2020 - Modified by Sean Kallaher (GitHub: skallaher)
 
   Version: 1.4.0
 
@@ -53,13 +54,6 @@
 
 #if defined(__AVR__) || defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
 #define PROGMEM_COMPATIBLE
-/*
-  #if defined(__AVR__) || defined(ARDUINO_ARCH_ESP8266)
-    #include <avr/pgmspace.h>
-  #elif defined(ARDUINO_ARCH_ESP32)
-    #include <pgmspace.h>
-  #endif
-  */
 #endif
 
 /** @name Device Constants */
@@ -525,8 +519,51 @@ const unsigned short initRegisterArray[] = {
     0x7701,
     0x7C84,
     0x7D03,
-    0x7E01};
+    0x7E01,
+    0xEF00        // Bank 0
+};
 
+/** Generated size of the register set gesture mode array */
+#define SET_GES_MODE_REG_ARRAY_SIZE (sizeof(setGestureModeRegisterArray)/sizeof(setGestureModeRegisterArray[0]))
+
+/*******************************************************
+* Return to Gesture mode register addresses and values
+*******************************************************/
+#ifdef PROGMEM_COMPATIBLE
+const unsigned short setGestureModeRegisterArray[] PROGMEM = {
+#else
+const unsigned short setGestureModeRegisterArray[] = {
+#endif
+    0xEF00,       // Bank 0
+    0x4100,       // Disable interrupts for first 8 gestures
+    0x4200,       // Disable wave (and other mode's) interrupt(s)
+    0x483C,
+    0x4900,
+    0x5110,
+    0x8320,
+    0x9ff9,
+    0xEF01,       // Bank 1
+    0x011E,
+    0x020F,
+    0x0310,
+    0x0402,
+    0x4140,
+    0x4330,
+    0x6596,
+    0x6600,
+    0x6797,
+    0x6801,
+    0x69CD,
+    0x6A01,
+    0x6bb0,
+    0x6c04,
+    0x6D2C,
+    0x6E01,
+    0x7400,       // Set gesture mode
+    0xEF00,       // Bank 0
+    0x41FF,       // Re-enable interrupts for first 8 gestures
+    0x4201,       // Re-enable interrupts for wave gesture
+};
 
 /**
  * PAJ7620 Device API class - As developed by RevEng Devs
@@ -586,6 +623,8 @@ class RevEng_PAJ7620
 
     bool isPAJ7620UDevice();
     void initializeDeviceSettings();
+
+    void writeRegisterArray(unsigned short array[], int arraySize);
 };
 
 #endif
