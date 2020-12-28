@@ -174,17 +174,17 @@ const unsigned short initCursorRegisterArray[] = {
     0xEF00,   // Set Bank 0
     0x3229,   // Default  29  [0] Cursor use top - def 1
               //              [1] Cursor Use BG Model - def 0
-              //              [2] Cursor Invert Y - def 0
+              //              [2] Cursor Invert Y - def 0       -- Not sure, doesn't seem to work
               //              [3] Cursor Invert X - def 1
               //              [5:4] Cursor top Ratio - def 0x2
     0x3301,   // Default  01  R_PositionFilterStartSizeTh [7:0]
     0x3400,   // Default  00  R_PositionFilterStartSizeTh [8]
     0x3501,   // Default  01  R_ProcessFilterStartSizeTh [7:0]
     0x3600,   // Default  00  R_ProcessFilterStartSizeTh [8]
-    0x3707,   // Default  09  R_CursorClampLeft [4:0]
-    0x3817,   // Default  15  R_CursorClampRight [4:0]
-    0x3906,   // Default  0A  R_CursorClampUp [4:0]
-    0x3A12,   // Default  12  R_CursorClampDown [4:0]
+    0x3703,   // Default  09  R_CursorClampLeft [4:0]
+    0x381B,   // Default  15  R_CursorClampRight [4:0]
+    0x3903,   // Default  0A  R_CursorClampUp [4:0]
+    0x3A1B,   // Default  12  R_CursorClampDown [4:0]
     0x4100,   // Interrupt enable mask - Should be 00 (disable gestures)
               //              All gesture flags [7:0]
     0x4284,   // Interrupt enable mask - Should be 84 (0b 1000 0100)
@@ -197,8 +197,10 @@ const unsigned short initCursorRegisterArray[] = {
               //              bit 6: N/A
               //              bit 7:No Object, cursor mode use only
     0x8B01,   // Default  10  R_Cursor_ObjectSizeTh [7:0]
-    0x8C37,   // Default  07  R_PositionResolution [2:0]
+    0x8C07,   // Default  07  R_PositionResolution [2:0]
     0xEF01,   // Set Bank 1
+    0x0403,   // Invert X&Y Axes in lens for GUI coordinates 
+              //  Where (0,0) is in upper left, positive down (Y) and right (X)
     0x7403,   // Enable cursor mode 0 - gesture, 3 - cursor, 5 - proximity
     0xEF00    // Set Bank 0 (parking it)
 };

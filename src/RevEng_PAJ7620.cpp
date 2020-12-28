@@ -249,6 +249,8 @@ void RevEng_PAJ7620::setCursorMode()
     value = (word & 0x00FF);
     writeRegister(address, value);
   }
+
+  selectRegisterBank(BANK0);  // park in bank0 by default
 }
 
 /****************************************************************
@@ -263,7 +265,7 @@ int RevEng_PAJ7620::getCursorX()
   readRegister(PAJ7620_ADDR_CURSOR_X_HIGH, 1, &data1);
   data1 &= 0x0F;      // Mask off high bits (unused)
   result |= data1;
-  result << 8;
+  result = result << 8;
   result |= data0;
 
   return result;
@@ -281,7 +283,7 @@ int RevEng_PAJ7620::getCursorY()
   readRegister(PAJ7620_ADDR_CURSOR_Y_HIGH, 1, &data1);
   data1 &= 0x0F;      // Mask off high bits (unused)
   result |= data1;
-  result << 8;
+  result = result << 8;
   result |= data0;
 
   return result;
