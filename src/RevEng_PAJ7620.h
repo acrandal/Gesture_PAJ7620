@@ -118,14 +118,19 @@
 #define PAJ7620_ADDR_GES_RESULT_0         (PAJ7620_ADDR_BASE + 0x43)  // R
 /** \note Readonly */
 #define PAJ7620_ADDR_GES_RESULT_1         (PAJ7620_ADDR_BASE + 0x44)  // R
-/**@}*/
 
 // Cursor Registers - Bank 0
+/** \note Readonly */
 #define PAJ7620_ADDR_CURSOR_X_LOW         (PAJ7620_ADDR_BASE + 0x3B)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_CURSOR_X_HIGH        (PAJ7620_ADDR_BASE + 0x3C)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_CURSOR_Y_LOW         (PAJ7620_ADDR_BASE + 0x3D)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_CURSOR_Y_HIGH        (PAJ7620_ADDR_BASE + 0x3E)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_CURSOR_INT           (PAJ7620_ADDR_BASE + 0x44)  // R
+/**@}*/
 
 // REGISTER BANK 1
 /** @name REGISTER BANK 1
