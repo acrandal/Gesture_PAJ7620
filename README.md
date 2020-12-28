@@ -1,6 +1,6 @@
 # Gesture Sensor - PAJ7620 / PAJ7620U2 / PAJ7620F2
 
-**Description**
+## Description ##
 
 The library here is for the PAJ7620 sensor with an I2C interface. The device also has several variants such as the PAJ7620U2 and PAJ7620F2.
 The device provides simple motion-based gesture recognition.
@@ -25,16 +25,42 @@ Breakout boards are also sold under the part number GY-PAJ7620 by various unname
 
 ---
 
-### Installation ###
+## Installation ##
 
-To download. click the DOWNLOAD ZIP button, rename the uncompressed folder to RevEng_PAJ7620. Check that the RevEng_PAJ7620 folder contains RevEng_PAJ7620.cpp and RevEng_PAJ7620.h
+**Via ArduinoIDE/CLI**
+
+This library is available in the Arduino extended library collection.
+To install:
+- Open ArduinoIDE
+- Select Tools->Manage Libraries...
+- In the search bar input: RevEng PAJ7620
+- Hover over the result and click "install"
+
+**Selecting a release from GitHub**
+
+On the GitHub page (https://github.com/acrandal/RevEng_PAJ7620), there is a "releases" section in the right sidebar.
+You can click on the release version you would like to use, or just "Releases" for the latest one.
+On that page you'll find a "source code" link in various archive formats like tar.gz or zip. Download that and follow the directions in the next section here.
+
+**Manual install from the Git repository**
+
+To download from the repo, choose the branch you want, click the DOWNLOAD ZIP button, rename the uncompressed folder to RevEng_PAJ7620. Check that the RevEng_PAJ7620 folder contains a src directory with RevEng_PAJ7620.cpp and RevEng_PAJ7620.h
 
 Place the RevEng_PAJ7620 library folder into your \<arduinoSketchFolder>/libraries/ folder. You may need to create the libraries subfolder if its your first library. Restart the IDE.
 
 There's a great tutorial on Arduino library installation at: http://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use
 
+**Installing using arduino-cli**
 
-### Example Sketches Provided ###
+The arduino-cli (command line interface) tool keeps and maintains the same libraries as your ArduinoIDE environment.
+This library can be installed on the terminal with these commands:
+
+> arduino-cli lib update-index  
+> arduino-cli lib install "RevEng PAJ7620"  
+
+---
+
+## Example Sketches Provided ##
 
 This package comes with several example scripts to get you rolling quickly.
 In all cases, you need to connect the sensor to Vcc and Ground, plus the I2C lines: SDA & SDL.
@@ -48,10 +74,14 @@ Sketches provided:
 - paj7620_9_gestures    // Polls for all 9 gestures
 - paj7620_interrupt     // Sets up an interrupt routine to wait for any gestures
 - paj7620_wave_count    // Polls for the number of waves the sensor sees
+- paj7620_cursor_demo   // Polls the sensor for a 'cursor', which is an object in front of the sensor. It then pulls the cursor location using (x,y) coordinates
 
 --- 
 
 ## Key code notes ##
+
+Major releases of this library have doxygen pages hosted on GitHub pages [here](https://acrandal.github.io/RevEng_PAJ7620/).
+The rest of this section gives a summary and notes of how the library's major features are designed.
 
 To use this library, include the libary's header:
 > #include "RevEng_PAJ7620.h"
@@ -117,9 +147,28 @@ This would look like:
 > RevEng_PAJ7620 sensor2 = RevEng_PAJ7620();  
 > sensor2.begin(&Wire1);  
 
+### Cursor Mode Summary ###
+
+The PAJ7620 sensor is capable of a 'cursor' mode.
+This is essentially a finger/object tracking capability where the center of the closest object in view is reported using (x,y) coordinates.
+This mode would be used for higher fidelity applications.
+The instantiation of the class is the same, and once it's initialized you can change to cursor mode and start tracking a target.
+> sensor.setCursorMode();  
+> sensor.isCursorInView();  
+> sensor.getCursorX();  
+> sensor.getCursorY();  
+
 ---
 
 ## Library History ##
+
+#### Version 1.4.0 ####
+
+- Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu> and [Sean Kallaher](https://github.com/skallaher).
+- Developed cursor mode - a object tracking on a (x,y) coordinate system
+- Doxygen documentation system put in place
+- GitHub pages documentation updates on master merges and version tags
+- CI build and test framework, currently building on Linux, MacOS, and Windows
 
 #### Version 1.3.0 ####
 - Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu>.
@@ -153,9 +202,10 @@ This would look like:
 - Initial class-based solution - Marc Finns, 2017
 - PROGMEM adapted from Jaycar Elctronics' fork, December 2020
 - Overhaul, documentation, and current version by Aaron S. Crandall, December 2020
+- Pull requests, CI framework, and doxygen materials by Sean Kallaher (skallaher), December 2020
 
 **License**  
 MIT - see LICENSE file
 
 **Version**  
-1.3.0
+1.4.0
