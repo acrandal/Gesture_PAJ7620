@@ -25,7 +25,7 @@ jobs:
            working-directory: "."
        - name: Switch to stable version
          if: startsWith(github.ref, 'main') || startsWith(github.ref, 'master')
-         run: echo "DEPLOY_DIR=${GITHUB_REF##refs/branches}" >> $GITHUB_ENV
+         run: echo "DEPLOY_DIR=\"\"" >> $GITHUB_ENV
        - name: Determine If Doc Version Is Tag
          id: prepare_tag
          if: startsWith(github.ref, 'refs/tags/')
