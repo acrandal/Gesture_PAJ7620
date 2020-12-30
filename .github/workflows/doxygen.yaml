@@ -24,7 +24,7 @@ jobs:
            doxyfile-path: "./Doxyfile"
            working-directory: "."
        - name: Switch to stable version
-         if: startsWith(github.ref, 'main') || startsWith(github.ref, 'master')
+         if: endsWith(github.ref, 'main') || endsWith(github.ref, 'master')
          run: echo "DEPLOY_DIR=stable" >> $GITHUB_ENV
        - name: Determine If Doc Version Is Tag
          id: prepare_tag
