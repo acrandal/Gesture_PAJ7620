@@ -465,7 +465,7 @@ class RevEng_PAJ7620
     bool isPAJ7620UDevice();
     void initializeDeviceSettings();
 
-    void writeRegisterArray(unsigned short array[], int arraySize);
+    void writeRegisterArray(const unsigned short array[], int arraySize);
 };
 
 #endif

@@ -201,7 +201,7 @@ bool RevEng_PAJ7620::isPAJ7620UDevice()
 
 /****************************************************************
 ****************************************************************/
-void RevEng_PAJ7620::writeRegisterArray(unsigned short array[], int arraySize)
+void RevEng_PAJ7620::writeRegisterArray(const unsigned short array[], int arraySize)
 {
   for (unsigned int i = 0; i < arraySize; i++)
   {
