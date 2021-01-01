@@ -23,3 +23,6 @@ vendor
 
 # Ignore doxygen results
 doxygen/
+
+# Ignore python virtual environment
+scripts/.paj7620-env/

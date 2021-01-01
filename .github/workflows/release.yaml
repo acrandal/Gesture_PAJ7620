@@ -1,0 +1,36 @@
+name: Prepare for Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      newVersion:
+        description: "New Version"
+        required: true
+      baseBranch:
+        description: "Branch to base release off of"
+        default: "master"
+        required: true
+
+jobs:
+  "update_files_for_release":
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v2
+       - uses: actions/setup-python@v2
+         with:
+           python-version: '3.x'
+       - name: Create and checkout update branch
+         run: |
+           NEW_BRANCH_NAME="automation/rev-to-${{github.event.inputs.newVersion}}"
+           git checkout ${{ github.event.inputs.baseBranch }}
+           git branch -D $NEW_BRANCH_NAME &> /dev/null
+           git checkout -b $NEW_BRANCH_NAME
+       - name: Setup Virtual Environment
+         run: |
+           ./scripts/create-virtualenv.sh
+           ./.paj7620-env/bin/activate
+       - name: Run rev-version script
+         run: |
+           NEW_VERSION=${{github.event.inputs.newVersion}}
+           ./scripts/rev-version.sh ${NEW_VERSION:+--next ${NEW_VERSION}}
+           
