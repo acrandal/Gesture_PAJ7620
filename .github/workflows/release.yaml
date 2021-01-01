@@ -32,5 +32,5 @@ jobs:
        - name: Run rev-version script
          run: |
            NEW_VERSION=${{github.event.inputs.newVersion}}
-           ./scripts/rev-version.sh ${NEW_VERSION:+--next ${NEW_VERSION}}
+           ./scripts/rev_version.sh ${NEW_VERSION:+--next ${NEW_VERSION}}
            

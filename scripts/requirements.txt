@@ -1,2 +1,6 @@
 click
 packaging
+
+pylint
+pylint_venv
+flake8
