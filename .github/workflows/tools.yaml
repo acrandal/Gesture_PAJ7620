@@ -1,0 +1,37 @@
+on:
+  push:
+    paths:
+      - 'scripts/**'
+    branches:
+      - main
+      - master
+      - develop
+  pull_request:
+    paths:
+      - 'scripts/**'
+    branches:
+      - main
+      - master
+      - develop
+
+jobs:
+  "lint_tools":
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v2
+       - uses: actions/setup-python@v2
+         with:
+           python-version: '3.x'
+       - name: Setup Virtual Environment
+         run: |
+           cd scripts
+           ./create-virtualenv.sh
+           ./.paj7620-env/bin/activate
+       - name: Run flake8
+         if: always()
+         run: |
+           flake8 --config=lint.ini
+       - name: Run pylint
+         if: always()
+         run: |
+           pylint --rcfile=lint.ini ./*
