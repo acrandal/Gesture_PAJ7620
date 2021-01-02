@@ -6,7 +6,7 @@
   Author       : Aaron S. Crandall <crandall@gonzaga.edu>
   Modified Time: December 2020
 
-  Description: This shows off "cursor mode" of the sensor
+  Description: This example shows off "cursor mode" of the sensor
     This mode outputs an (X,Y) pair when an object is in view.
     It is effectively a "mouse mode" or "pointer mode"
     The intended use would be a low res non-contact pointer for input

@@ -14,10 +14,12 @@
    
   Version: 1.4.0
 
-  Description: This demo can recognize 9 gestures and output the result,
+  Description: This driver class can recognize 9 gestures and output the result,
         including move up, move down, move left, move right,
         move forward, move backward, circle-clockwise,
         circle-anti (counter) clockwise, and wave.
+        The driver also allows changing the sensor to 'cursor mode' where it
+        tracks the closest object in view on an (X,Y) coordinate system.
 
   License: The MIT License (MIT)
 

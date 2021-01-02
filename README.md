@@ -56,8 +56,8 @@ There's a great tutorial on Arduino library installation at: http://learn.adafru
 The arduino-cli (command line interface) tool keeps and maintains the same libraries as your ArduinoIDE environment.
 This library can be installed on the terminal with these commands:
 
-> arduino-cli lib update-index  
-> arduino-cli lib install "RevEng PAJ7620"  
+- arduino-cli lib update-index  
+- arduino-cli lib install "RevEng PAJ7620"  
 
 ---
 
@@ -85,16 +85,16 @@ Major releases of this library have doxygen pages hosted on GitHub pages [here](
 The rest of this section gives a summary and notes of how the library's major features are designed.
 
 To use this library, include the libary's header:
-> #include "RevEng_PAJ7620.h"
+- #include "RevEng_PAJ7620.h"
 
 Create the driver object for the sensor:
-> RevEng_PAJ7620 sensor = RevEng_PAJ7620();
+- RevEng_PAJ7620 sensor = RevEng_PAJ7620();
 
 In setup(), initialize and configure the driver:
-> sensor.begin();
+- sensor.begin();
 
 To read any gestures detected, use the readGesture() interface:
-> Gesture gesture = sensor.readGesture();
+- Gesture gesture = sensor.readGesture();
 
 
 The RevEng_PAJ7620.h header defines an enumerated type called Gesture for the gesture results.
@@ -109,8 +109,8 @@ GES_NONE, GES_UP, GES_DOWN, GES_LEFT, GES_RIGHT, GES_FORWARD, GES_BACKWARD, GES_
 Reading a gesture has timing issues, notably the time it takes for the person to position their hand before starting a gesture and the time to remove their hand after finishing the gesture.
 These values are most important for the forward and backward gestures.
 To provide the ability to tune these timing values, two interfaces are provided to set their values in milliseconds:
-> void setGestureEntryTime(unsigned long newGestureEntryTime);  
-> void setGestureExitTime(unsigned long newGestureExitTime);
+- void setGestureEntryTime(unsigned long newGestureEntryTime);  
+- void setGestureExitTime(unsigned long newGestureExitTime);
 
 These values are defaulted to Entry Time: 0ms and Exit Time: 200ms.
 You might need to play with these values for your given application and expected use behaviors.
@@ -120,15 +120,15 @@ You might need to play with these values for your given application and expected
 The PAJ7620 sensor counts waves (rapid back and forth passes of an object) using a 4 bit register.
 Once the waving stops is when it raises the wave interrupt.
 The quantity of waves is available for reading and is exposed using this interface:
-> int wave_count = sensor.getWaveCount();
+- int wave_count = sensor.getWaveCount();
 
 ### Enabling and Disabling sensor ###
 
 The PAJ7620 can be enabled and disabled during runtime.
 After the call to begin(), the device is already enabled and running.
 This library provides an interface to disable the devices and enable it as needed via these calls:
-> sensor.disable();  
-> sensor.enable();
+- sensor.disable();  
+- sensor.enable();
 
 When disabled, the sensor will not raise any interrupts, either on the interrupt pin or when calling readGesture();  
 NOTE: There is a more complete disabling that turns of all I2C messages, but that is not implemented fully here.
@@ -138,15 +138,15 @@ NOTE: There is a more complete disabling that turns of all I2C messages, but tha
 To use other I2C busses than the default Wire, use the begin() initializer by passing a pointer to the bus you want.
 The library will store the bus of choice and use it from there on out.
 For example:
-> sensor.begin(&Wire1);
+- sensor.begin(&Wire1);
 
 You can use multiple PAJ7620 devices on an Arduino, with one per I2C bus if your device has multiple busses available.
 This would look like:
 
-> RevEng_PAJ7620 sensor = RevEng_PAJ7620();  
-> sensor.begin(&Wire);  
-> RevEng_PAJ7620 sensor2 = RevEng_PAJ7620();  
-> sensor2.begin(&Wire1);  
+- RevEng_PAJ7620 sensor = RevEng_PAJ7620();
+- sensor.begin(&Wire);
+- RevEng_PAJ7620 sensor2 = RevEng_PAJ7620();  
+- sensor2.begin(&Wire1);  
 
 ### Cursor Mode Summary ###
 
@@ -154,38 +154,42 @@ The PAJ7620 sensor is capable of a 'cursor' mode.
 This is essentially a finger/object tracking capability where the center of the closest object in view is reported using (x,y) coordinates.
 This mode would be used for higher fidelity applications.
 The instantiation of the class is the same, and once it's initialized you can change to cursor mode and start tracking a target.
-> sensor.setCursorMode();  
-> sensor.isCursorInView();  
-> sensor.getCursorX();  
-> sensor.getCursorY();  
+- sensor.setCursorMode();  
+- sensor.isCursorInView();  
+- sensor.getCursorX();  
+- sensor.getCursorY();  
 
 The program can return to gesture mode with the setGestureMode call:
-> sensor.setGestureMode();
+- sensor.setGestureMode();
 
 ---
 
 ## Library History ##
 
-#### Version 1.4.0 ####
+**Version 1.4.0**
 
-- Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu> and [Sean Kallaher](https://github.com/skallaher).
+- Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu> and [Sean Kallaher](https://github.com/skallaher) with input from [Ian](https://github.com/ianfixes) on arduino_ci use
 - Developed cursor mode - an object tracking on a (x,y) coordinate system
+- Added cursor mode example sketch
 - Doxygen documentation system put in place
 - GitHub pages documentation updates on master merges and version tags
-- CI build and test framework, currently building on Linux, MacOS, and Windows
+- CI build and test framework, currently building on Ubuntu Linux
 - Added APIs for inverting the X and Y axes - works in all modes
 - Slimmed down the initialization array from 440 bytes to 100 bytes
 - Created a proper gesture mode register array to allow returning to gesture mode from cursor mode
+- Adjusted README to better align with doxygen formatting/output
 
 
-#### Version 1.3.0 ####
+**Version 1.3.0**
+
 - Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu>.
 - Library now has a begin(TwoWire *bus) interface to allow user to pass a chosen TwoWire bus object for handling situations where they're using a second (or third) I2C bus on their device. For example: sensor.begin(&Wire1).
 - Files re-arranged to comport with the [Arduino IDE/CLI library specification](https://arduino.github.io/arduino-cli/latest/library-specification/) for 1.5.0+
 - Updated library.properties for the RevEng arduino library releases.
 - Added keywords.txt for ArduinoIDE syntax highlighting for driver.
 
-#### Version 1.2.0 ####
+**Version 1.2.0**
+
 - Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu>.  
 - Library is able to return a current count of waves by the user.  
 - Library now provides several extra example Arduino programs to showcase using the wave feature and more of the API.  
@@ -194,14 +198,14 @@ The program can return to gesture mode with the setGestureMode call:
 - Plenty of small formatting, commenting updates, and other details.  
 - Bugfix: Brought interrupt bits into alignment with official documentation for gesture directions (see v0.8 of PixArt device documentation).
 
-#### Version 1.1.0 ####
+**Version 1.1.0**
 - Work done by [Marc Finns](https://github.com/MarcFinns).  
 - Based on the original SEEED library but with higher level API and fully encapsulated in a C++ object (no global variables).   
 - No need for registry manipulation in user code anymore.  
 - A gesture event is returned with an API call.  
 - Library provides an interrupt based example using the PAJ7620 object.  
 
-#### Version 1.0.0 ####
+**Version 1.0.0**
 - [SEEED](https://www.seeedstudio.com/) released [library](https://github.com/Seeed-Studio/Gesture_PAJ7620) is able to identify and return all 9 gestures and up to 15 calculated gestures in example Arduino code.
 
 
@@ -211,6 +215,7 @@ The program can return to gesture mode with the setGestureMode call:
 - PROGMEM adapted from Jaycar Elctronics' fork, December 2020
 - Overhaul, documentation, and current version by Aaron S. Crandall, December 2020
 - Pull requests, CI framework, and doxygen materials by Sean Kallaher (skallaher), December 2020
+- arduino_ci input and knowledge from Ian / [ianfixes](https://github.com/ianfixes), December 2020
 
 **License**  
 MIT - see LICENSE file
