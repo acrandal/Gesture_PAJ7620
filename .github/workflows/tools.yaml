@@ -24,6 +24,7 @@ jobs:
            python-version: '3.x'
        - name: Setup Virtual Environment
          run: |
+           pip3 install virtualenv
            cd scripts
            ./create-virtualenv.sh
            ./.paj7620-env/bin/activate
