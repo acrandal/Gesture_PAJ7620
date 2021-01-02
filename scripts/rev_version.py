@@ -112,7 +112,7 @@ def get_examples_changed(example_dir: str, previous_version: version.Version) ->
     """
     # Get all example files changed since current version tag
     changed_examples = subprocess.run(args=["git", "diff", "--name-only",
-                                       "v{}".format(previous_version.base_version), "--", example_dir],
+                                            "v{}".format(previous_version.base_version), "--", example_dir],
                                       capture_output=True,
                                       check=True)
 
@@ -142,7 +142,7 @@ def rev_example_versions(example_dir: str, previous_version: version.Version):
                 ex_version = version.parse(re.search(r'version\s+({})\n'.format(version.VERSION_PATTERN),
                                                      example, flags=re.VERBOSE | re.IGNORECASE | re.M)[1])
                 ex_version = get_updated_version_copy(ex_version, minor=ex_version.minor + 1)
-                new_example = re.sub(r'(version\s+)(.*)\n', '\g<1>{}\n'.format(ex_version.base_version),
+                new_example = re.sub(r'(version\s+)(.*)\n', r'\g<1>{}\n'.format(ex_version.base_version),
                                      example)
                 print("NEW: {}".format(example_filename))
                 new_examples.append(new_example)
@@ -199,8 +199,7 @@ def calculate_prev_version(current_version: version.Version) -> version.Version:
 
     if current_version.micro == 0:
         return get_updated_version_copy(current_version, minor=current_version.minor - 1)
-    else:
-        return get_updated_version_copy(current_version, micro=current_version.micro - 1)
+    return get_updated_version_copy(current_version, micro=current_version.micro - 1)
 
 
 @click.command()
