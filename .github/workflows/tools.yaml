@@ -27,7 +27,7 @@ jobs:
            pip3 install virtualenv
            cd scripts
            ./create-virtualenv.sh
-           ./.paj7620-env/bin/activate
+           source .paj7620-env/bin/activate
        - name: Run flake8
          if: always()
          run: |
