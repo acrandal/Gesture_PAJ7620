@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cleargesture_100',['clearGesture',['../classRevEng__PAJ7620.html#a8e77b24fa068196d12b128957422d977',1,'RevEng_PAJ7620']]]
+  ['cleargestureinterrupts_100',['clearGestureInterrupts',['../classRevEng__PAJ7620.html#ad906c7ed5549a2d29f5a698222a51b24',1,'RevEng_PAJ7620']]]
 ];
