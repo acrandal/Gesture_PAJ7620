@@ -57,6 +57,7 @@
 #define PROGMEM_COMPATIBLE
 #endif
 
+
 /** 
   Gesture result definitions.
   Used as return value from readGesture call
@@ -73,6 +74,7 @@ enum Gesture {
   GES_ANTICLOCKWISE, /**< Anticlockwise circular gesture */
   GES_WAVE           /**< Wave gesture */
 };
+
 
 /**
   Used for selecting PAJ7620 memory bank to read/write from
@@ -418,27 +420,14 @@ class RevEng_PAJ7620
     uint8_t begin();
     uint8_t begin(TwoWire * chosenWireHandle);    // Ex: begin(&Wire1)
 
-    /** @name Gesture mode controls */
-    /**@{*/
-    Gesture readGesture();
-    void clearGesture();
-
-    void setGestureEntryTime(unsigned long newGestureEntryTime);
-    void setGestureExitTime(unsigned long newGestureExitTime);
-
-    int getWaveCount();
-    /**@}*/
-
-    // void setGameMode(); // No documentation for this mode is available (yet)
     void disable();                 // Suspend interrupts (both pin and registers)
     void enable();                  // Resume interrupts (both pin and registers)
 
+    /** @name Setting sensor mode interface */
+    /**@{*/
     void setGestureMode();          // Put sensor into gesture mode
     void setCursorMode();           // Put sensor into cursor mode
-    bool isCursorInView();          // Cursor object in view
-
-    int getCursorX();               // Get cursor's X axis location
-    int getCursorY();               // Get cusors's Y axis location
+    /**@}*/
 
     // Note: Experimentation with inverting the sensor's axis has led to some odd
     //  behavior. Notably, the physical aim of the sensor changes to offcenter.
@@ -446,14 +435,36 @@ class RevEng_PAJ7620
     void invertXAxis();             // Invert (toggle) sensor's X (vertical) axis
     void invertYAxis();             // Invert (toggle) sensors' Y (vertical) axis
 
+    // void setGameMode(); // No documentation for this mode is available (yet)
+
+    /** @name Gesture mode interface */
+    /**@{*/
+    Gesture readGesture();
+    void clearGestureInterrupts();
+
+    void setGestureEntryTime(unsigned long newGestureEntryTime);
+    void setGestureExitTime(unsigned long newGestureExitTime);
+
+    int getWaveCount();
+    /**@}*/
+
+    /** @name Cursor mode interface */
+    /**@{*/
+    bool isCursorInView();          // Cursor object in view
+
+    int getCursorX();               // Get cursor's X axis location
+    int getCursorY();               // Get cusors's Y axis location
+    /**@}*/
+
+
   private:
     unsigned long gestureEntryTime; // User set gesture entry delay in ms (default: 0)
     unsigned long gestureExitTime;  // User set gesture exit delay in ms (default 200)
 
     TwoWire *wireHandle;            // User selected Wire bus (default: Wire)
 
-    uint8_t writeRegister(uint8_t addr, uint8_t cmd);
-    uint8_t readRegister(uint8_t addr, uint8_t qty, uint8_t data[]);
+    uint8_t writeRegister(uint8_t i2cAddress, uint8_t dataByte);
+    uint8_t readRegister(uint8_t i2cAddress, uint8_t byteCount, uint8_t data[]);
 
     void selectRegisterBank(Bank_e bank);
 
