@@ -14,7 +14,7 @@ RevEng_PAJ7620 KEYWORD1
 #######################################
 begin   KEYWORD2
 readGesture KEYWORD2
-clearGesture KEYWORD2
+clearGestureInterrupts KEYWORD2
 setGestureEntryTime KEYWORD2
 setGestureExitTime KEYWORD2
 getWaveCount KEYWORD2
@@ -25,6 +25,8 @@ setCursorMode KEYWORD2
 isCursorInView KEYWORD2
 getCursorX KEYWORD2
 getCursorY KEYWORD2
+invertXAxis KEYWORD2
+invertYAxis KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

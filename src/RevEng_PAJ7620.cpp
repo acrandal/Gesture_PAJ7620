@@ -1,6 +1,11 @@
-/*
-  RevEng_PAJ7620.cpp
+/**
+  \file RevEng_PAJ7620.cpp
+  \author Aaron S. Crandall
 
+  \version 1.4.0
+
+  \copyright
+  \parblock
   - Copyright (c) 2015 seeed technology inc.
   - Website    : www.seeed.cc
   - Author     : Wuruibin & Xiangnan
@@ -11,9 +16,7 @@
   - 2020 - PROGMEM code adapted from Jaycar-Electronics' work  
   - 2020 - Modified by Aaron S. Crandall <crandall@gonzaga.edu>  
   - 2020 - Modified by Sean Kallaher (GitHub: skallaher) 
-   
-  Version: 1.4.0
-
+  
   Description: This driver class can recognize 9 gestures and output the result,
         including move up, move down, move left, move right,
         move forward, move backward, circle-clockwise,
@@ -40,6 +43,13 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
+  \endparblock
+
+  PAJ7620U2 Sensor data sheet for reference found here:
+    https://datasheetspdf.com/pdf-file/1309990/PixArt/PAJ7620U2/1
+
+  Driver sources, latest code, and authors available at:
+    https://github.com/acrandal/RevEng_PAJ7620
 */
 
 #include "RevEng_PAJ7620.h"

@@ -2,6 +2,8 @@
   \file RevEng_PAJ7620.h
   \author Aaron S. Crandall
 
+  \version 1.4.0
+
   \copyright
   \parblock
   - Copyright (c) 2015 seeed technology inc.
@@ -14,8 +16,6 @@
   - 2020 - PROGMEM code adapted from Jaycar-Electronics' work  
   - 2020 - Modified by Aaron S. Crandall <crandall@gonzaga.edu>  
   - 2020 - Modified by Sean Kallaher (GitHub: skallaher)  
-
-  Version: 1.4.0
 
   Description: This demo can recognize 9 gestures and output the result,
         including move up, move down, move left, move right,
@@ -45,6 +45,9 @@
 
   PAJ7620U2 Sensor data sheet for reference found here:
     https://datasheetspdf.com/pdf-file/1309990/PixArt/PAJ7620U2/1
+
+  Driver sources, latest code, and authors available at:
+    https://github.com/acrandal/RevEng_PAJ7620
 */
 
 #ifndef __PAJ7620_H__
@@ -53,6 +56,10 @@
 #include <Arduino.h>
 #include <Wire.h>
 
+/* Changed to JayCar-Electronics PROGMEM approach from <a href="https://github.com/Jaycar-Electronics">their fork</a>.
+ * This is used for the various initialization and mode register arrays.
+ * Saves about 5% of SRAM on an Arduino Uno - Around 100 bytes for the init array.
+ */
 #if defined(__AVR__) || defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
 #define PROGMEM_COMPATIBLE
 #endif
@@ -91,7 +98,6 @@ typedef enum {
 
 /** DEVICE'S I2C ID - defined by manufacturer */
 #define PAJ7620_I2C_BUS_ADDR              0x73
-
 
 /** Base address for accessing registers */
 #define PAJ7620_ADDR_BASE                 0x00
@@ -246,62 +252,15 @@ typedef enum {
 #define CUR_NO_OBJECT                     0x80      // Bit 7 - 1000 0000
 
 
-#define SET_CURSOR_MODE_REG_ARRAY_SIZE (sizeof(setCursorModeRegisterArray)/sizeof(setCursorModeRegisterArray[0]))
-
-#ifdef PROGMEM_COMPATIBLE
-const unsigned short setCursorModeRegisterArray[] PROGMEM = {
-#else
-const unsigned short setCursorModeRegisterArray[] = {
-#endif
-    0xEF00,   // Set Bank 0
-    0x3229,   // Default  29  [0] Cursor use top - def 1
-              //              [1] Cursor Use BG Model - def 0
-              //              [2] Cursor Invert Y - def 0       -- Not sure, doesn't seem to work
-              //              [3] Cursor Invert X - def 1
-              //              [5:4] Cursor top Ratio - def 0x2
-    0x3301,   // Default  01  R_PositionFilterStartSizeTh [7:0]
-    0x3400,   // Default  00  R_PositionFilterStartSizeTh [8]
-    0x3501,   // Default  01  R_ProcessFilterStartSizeTh [7:0]
-    0x3600,   // Default  00  R_ProcessFilterStartSizeTh [8]
-    0x3703,   // Default  09  R_CursorClampLeft [4:0]
-    0x381B,   // Default  15  R_CursorClampRight [4:0]
-    0x3903,   // Default  0A  R_CursorClampUp [4:0]
-    0x3A1B,   // Default  12  R_CursorClampDown [4:0]
-    0x4100,   // Interrupt enable mask - Should be 00 (disable gestures)
-              //              All gesture flags [7:0]
-    0x4284,   // Interrupt enable mask - Should be 84 (0b 1000 0100)
-              //              bit 0: Wave, wave mode use only
-              //              bit 1: Proximity, proximity mode use only
-              //              bit 2: Has Object, cursor mode use only
-              //              bit 3: Wake up trigger, trigger mode use only
-              //              bit 4: Confirm, confirm mode use only
-              //              bit 5: Abort, confirm mode use only
-              //              bit 6: N/A
-              //              bit 7:No Object, cursor mode use only
-    0x8B01,   // Default  10  R_Cursor_ObjectSizeTh [7:0]
-    0x8C07,   // Default  07  R_PositionResolution [2:0]
-    0xEF01,   // Set Bank 1
-    0x0403,   // Invert X&Y Axes in lens for GUI coordinates 
-              //  Where (0,0) is in upper left, positive down (Y) and right (X)
-    0x7403,   // Enable cursor mode 0 - gesture, 3 - cursor, 5 - proximity
-    0xEF00    // Set Bank 0 (parking it)
-};
-
 
 /** Generated size of the register init array */
 #define INIT_REG_ARRAY_SIZE (sizeof(initRegisterArray)/sizeof(initRegisterArray[0]))
 
-/*******************************************************
-* Initial Gesture I2C mode register addresses and values
-*
-* Changed to JayCar-Electronics PROGMEM approach from <a href="https://github.com/Jaycar-Electronics">their fork</a>.
-* 
-* Saves about 5% of SRAM on an Arduino Uno - Around 100 bytes
-* Reduced this from prior config array be removing fields setting to default values.
-* This saved around 330 bytes over the prior implementation.
-*
-* Values taken from PixArt reference documentation v0.8 & v1.0 - see <a href="https://github.com/acrandal/RevEng_PAJ7620/wiki">wiki</a> for files
-*******************************************************/
+/**
+ * Initial device register addresses and values.
+ * \note Puts device into gesture mode with various "normal" mode values.
+ * \note Values taken from PixArt reference documentation v0.8 & v1.0 - see <a href="https://github.com/acrandal/RevEng_PAJ7620/wiki">wiki</a> for files
+ */
 #ifdef PROGMEM_COMPATIBLE
 const unsigned short initRegisterArray[] PROGMEM = {
 #else
@@ -368,9 +327,11 @@ const unsigned short initRegisterArray[] = {
 /** Generated size of the register set gesture mode array */
 #define SET_GES_MODE_REG_ARRAY_SIZE (sizeof(setGestureModeRegisterArray)/sizeof(setGestureModeRegisterArray[0]))
 
-/*******************************************************
-* Return to Gesture mode register addresses and values
-*******************************************************/
+/**
+ * Gesture mode specific register addresses and values
+ * \note Puts device into gesture mode with appropriate values.
+ * \note Values taken from PixArt reference documentation v0.8 & v1.0 - see <a href="https://github.com/acrandal/RevEng_PAJ7620/wiki">wiki</a> for files
+ */
 #ifdef PROGMEM_COMPATIBLE
 const unsigned short setGestureModeRegisterArray[] PROGMEM = {
 #else
@@ -405,6 +366,54 @@ const unsigned short setGestureModeRegisterArray[] = {
     0xEF00,       // Bank 0
     0x41FF,       // Re-enable interrupts for first 8 gestures
     0x4201        // Re-enable interrupts for wave gesture
+};
+
+
+/** Generated size of the register set cursor mode array */
+#define SET_CURSOR_MODE_REG_ARRAY_SIZE (sizeof(setCursorModeRegisterArray)/sizeof(setCursorModeRegisterArray[0]))
+
+/**
+ * Cursor mode specific register addresses and values
+ * \note Puts device into cursor mode with reasonable basic values.
+ * \note Values taken from PixArt reference documentation v0.8 & v1.0 - see <a href="https://github.com/acrandal/RevEng_PAJ7620/wiki">wiki</a> for files
+ */
+#ifdef PROGMEM_COMPATIBLE
+const unsigned short setCursorModeRegisterArray[] PROGMEM = {
+#else
+const unsigned short setCursorModeRegisterArray[] = {
+#endif
+    0xEF00,   // Set Bank 0
+    0x3229,   // Default  29  [0] Cursor use top - def 1
+              //              [1] Cursor Use BG Model - def 0
+              //              [2] Cursor Invert Y - def 0       -- Not sure, doesn't seem to work
+              //              [3] Cursor Invert X - def 1
+              //              [5:4] Cursor top Ratio - def 0x2
+    0x3301,   // Default  01  R_PositionFilterStartSizeTh [7:0]
+    0x3400,   // Default  00  R_PositionFilterStartSizeTh [8]
+    0x3501,   // Default  01  R_ProcessFilterStartSizeTh [7:0]
+    0x3600,   // Default  00  R_ProcessFilterStartSizeTh [8]
+    0x3703,   // Default  09  R_CursorClampLeft [4:0]
+    0x381B,   // Default  15  R_CursorClampRight [4:0]
+    0x3903,   // Default  0A  R_CursorClampUp [4:0]
+    0x3A1B,   // Default  12  R_CursorClampDown [4:0]
+    0x4100,   // Interrupt enable mask - Should be 00 (disable gestures)
+              //              All gesture flags [7:0]
+    0x4284,   // Interrupt enable mask - Should be 84 (0b 1000 0100)
+              //              bit 0: Wave, wave mode use only
+              //              bit 1: Proximity, proximity mode use only
+              //              bit 2: Has Object, cursor mode use only
+              //              bit 3: Wake up trigger, trigger mode use only
+              //              bit 4: Confirm, confirm mode use only
+              //              bit 5: Abort, confirm mode use only
+              //              bit 6: N/A
+              //              bit 7:No Object, cursor mode use only
+    0x8B01,   // Default  10  R_Cursor_ObjectSizeTh [7:0]
+    0x8C07,   // Default  07  R_PositionResolution [2:0]
+    0xEF01,   // Set Bank 1
+    0x0403,   // Invert X&Y Axes in lens for GUI coordinates 
+              //  Where (0,0) is in upper left, positive down (Y) and right (X)
+    0x7403,   // Enable cursor mode 0 - gesture, 3 - cursor, 5 - proximity
+    0xEF00    // Set Bank 0 (parking it)
 };
 
 
