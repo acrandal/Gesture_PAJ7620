@@ -49,7 +49,7 @@ To download from the repo, choose the branch you want, click the DOWNLOAD ZIP bu
 
 Place the RevEng_PAJ7620 library folder into your \<arduinoSketchFolder>/libraries/ folder. You may need to create the libraries subfolder if its your first library. Restart the IDE.
 
-There's a great tutorial on Arduino library installation at: http://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use
+There's a great tutorial on Arduino library installation at: [http://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use](http://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use)
 
 **Installing using arduino-cli**
 
@@ -81,7 +81,7 @@ Sketches provided:
 
 ## Key code notes ##
 
-Major releases of this library have doxygen pages hosted on GitHub pages [here](https://acrandal.github.io/RevEng_PAJ7620/).
+Major releases of this library have doxygen pages hosted on GitHub pages [here](https://acrandal.github.io/RevEng_PAJ7620/latest/index.html).
 The rest of this section gives a summary and notes of how the library's major features are designed.
 
 To use this library, include the libary's header:
@@ -114,10 +114,11 @@ To provide the ability to tune these timing values, two interfaces are provided 
 
 These values are defaulted to Entry Time: 0ms and Exit Time: 200ms.
 You might need to play with these values for your given application and expected use behaviors.
+The entry time is most important to reduce false positive errors when trying for the backwards gesture. The exit time is most important for preventing double gesture detection, especially for the forward and backward gestures.
 
 ### Wave Gesture Count ###
 
-The PAJ7620 sensor counts waves (rapid back and forth passes of an object) using a 4 bit register.
+The PAJ7620 sensor counts waves (rapid back and forth passes of an object) using a 4 bit register, so it holds values in the range 0..15.
 Once the waving stops is when it raises the wave interrupt.
 The quantity of waves is available for reading and is exposed using this interface:
 - int wave_count = sensor.getWaveCount();
