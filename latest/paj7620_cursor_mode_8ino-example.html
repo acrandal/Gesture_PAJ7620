@@ -92,14 +92,14 @@ Same as package under MIT License (MIT) </dd></dl>
 <div class="line">  License: Same as package under MIT License (MIT)</div>
 <div class="line">*/</div>
 <div class="line"> </div>
-<div class="line">// Includes enum definition of GES_* return values from readGesture()</div>
+<div class="line">// Includes sensor driver object and interface</div>
 <div class="line">#include &quot;RevEng_PAJ7620.h&quot;</div>
 <div class="line"> </div>
 <div class="line">// Create gesture sensor driver object</div>
 <div class="line">RevEng_PAJ7620 sensor = RevEng_PAJ7620();</div>
 <div class="line"> </div>
 <div class="line"> </div>
-<div class="line">// ******************************************************************</div>
+<div class="line">// ***************************************************************************</div>
 <div class="line">void setup()</div>
 <div class="line">{</div>
 <div class="line">  pinMode(LED_BUILTIN, OUTPUT);     // Configure LED for output</div>
@@ -123,7 +123,7 @@ Same as package under MIT License (MIT) </dd></dl>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"> </div>
-<div class="line">// ******************************************************************</div>
+<div class="line">// ***************************************************************************</div>
 <div class="line">void loop()</div>
 <div class="line">{</div>
 <div class="line">  if( sensor.isCursorInView() )</div>

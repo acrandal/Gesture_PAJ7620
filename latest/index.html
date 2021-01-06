@@ -124,7 +124,7 @@ Example Sketches Provided</h1>
 <hr  />
 <h1><a class="anchor" id="autotoc_md7"></a>
 Key code notes</h1>
-<p>Major releases of this library have doxygen pages hosted on GitHub pages <a href="https://acrandal.github.io/RevEng_PAJ7620/">here</a>. The rest of this section gives a summary and notes of how the library's major features are designed.</p>
+<p>Major releases of this library have doxygen pages hosted on GitHub pages <a href="https://acrandal.github.io/RevEng_PAJ7620/latest/index.html">here</a>. The rest of this section gives a summary and notes of how the library's major features are designed.</p>
 <p>To use this library, include the libary's header:</p><ul>
 <li>#include "RevEng_PAJ7620.h"</li>
 </ul>
@@ -146,10 +146,10 @@ Sensor timing/sensitivity controls</h2>
 </li>
 <li>void setGestureExitTime(unsigned long newGestureExitTime);</li>
 </ul>
-<p>These values are defaulted to Entry Time: 0ms and Exit Time: 200ms. You might need to play with these values for your given application and expected use behaviors.</p>
+<p>These values are defaulted to Entry Time: 0ms and Exit Time: 200ms. You might need to play with these values for your given application and expected use behaviors. The entry time is most important to reduce false positive errors when trying for the backwards gesture. The exit time is most important for preventing double gesture detection, especially for the forward and backward gestures.</p>
 <h2><a class="anchor" id="autotoc_md9"></a>
 Wave Gesture Count</h2>
-<p>The PAJ7620 sensor counts waves (rapid back and forth passes of an object) using a 4 bit register. Once the waving stops is when it raises the wave interrupt. The quantity of waves is available for reading and is exposed using this interface:</p><ul>
+<p>The PAJ7620 sensor counts waves (rapid back and forth passes of an object) using a 4 bit register, so it holds values in the range 0..15. Once the waving stops is when it raises the wave interrupt. The quantity of waves is available for reading and is exposed using this interface:</p><ul>
 <li>int wave_count = sensor.getWaveCount();</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md10"></a>
