@@ -17,14 +17,14 @@
   License: Same as package under MIT License (MIT)
 */
 
-// Includes enum definition of GES_* return values from readGesture()
+// Includes sensor driver object and interface
 #include "RevEng_PAJ7620.h"
 
 // Create gesture sensor driver object
 RevEng_PAJ7620 sensor = RevEng_PAJ7620();
 
 
-// ******************************************************************
+// ***************************************************************************
 void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);     // Configure LED for output
@@ -48,7 +48,7 @@ void setup()
 }
 
 
-// ******************************************************************
+// ***************************************************************************
 void loop()
 {
   if( sensor.isCursorInView() )
