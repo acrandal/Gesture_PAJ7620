@@ -163,9 +163,25 @@ The instantiation of the class is the same, and once it's initialized you can ch
 The program can return to gesture mode with the setGestureMode call:
 - sensor.setGestureMode();
 
+### Game Mode Summary ###
+
+The PixArt datasheets refer prominently to "game mode" with the sensor.
+The documentation talks about game mode providing 240fps instead of normal mode's 120fps.
+After working with PixArt to get the correct values in place, these modes are set with the driver API's:
+- sensor.setNormalSpeed();
+- sensor.setGameSpeed();
+
+The biggest side effect of using game speed is that if you're polling the sensor for events, especially cursor location updates, you can receive data results at around twice the rate with the game speed set.
+
+NOTE: if you change modes (gesture to cursor or cursor to gesture) the speed shall return to normal speed until you call setGameSpeed() again.
+
 ---
 
 ## Library History ##
+
+**Version 1.5.0**
+
+- Implemented "game mode" and "normal" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).
 
 **Version 1.4.0**
 
@@ -179,7 +195,6 @@ The program can return to gesture mode with the setGestureMode call:
 - Slimmed down the initialization array from 440 bytes to 100 bytes
 - Created a proper gesture mode register array to allow returning to gesture mode from cursor mode
 - Adjusted README to better align with doxygen formatting/output
-
 
 **Version 1.3.0**
 
@@ -222,4 +237,4 @@ The program can return to gesture mode with the setGestureMode call:
 MIT - see LICENSE file
 
 **Version**  
-1.4.0
+1.5.0

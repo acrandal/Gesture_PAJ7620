@@ -6,7 +6,7 @@ import serial
 if __name__ == "__main__":
 
     try:
-        ser = serial.Serial('/dev/ttyUSB1', 115200)
+        ser = serial.Serial('/dev/ttyUSB0', 115200)
         while(True):
             line  = ser.readline()
             line = line.decode('utf-8')
