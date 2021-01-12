@@ -2,7 +2,7 @@
   \file RevEng_PAJ7620.h
   \author Aaron S. Crandall
 
-  \version 1.4.0
+  \version 1.5.0
 
   \copyright
   \parblock
@@ -352,7 +352,7 @@ const unsigned short setGestureModeRegisterArray[] = {
     0x0402,
     0x4140,
     0x4330,
-    0x6596,
+    0x6596,       // R_IDLE_TIME  - Normal mode LSB "120 fps" (supposedly)
     0x6600,
     0x6797,
     0x6801,
@@ -444,7 +444,7 @@ class RevEng_PAJ7620
     void invertXAxis();             // Invert (toggle) sensor's X (vertical) axis
     void invertYAxis();             // Invert (toggle) sensors' Y (vertical) axis
 
-    // void setGameMode(); // No documentation for this mode is available (yet)
+    void setGameSpeed();            // No documentation for this mode is available (yet)
 
     /** @name Gesture mode interface */
     /**@{*/

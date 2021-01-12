@@ -2,7 +2,7 @@
   \file RevEng_PAJ7620.cpp
   \author Aaron S. Crandall
 
-  \version 1.4.0
+  \version 1.5.0
 
   \copyright
   \parblock
@@ -475,10 +475,10 @@ void RevEng_PAJ7620::setGestureExitTime(unsigned long newGestureExitTime)
   gestureExitTime = newGestureExitTime;
 }
 
-/*
-void RevEng_PAJ7620::setGameMode()
+
+/**********************************************************************************/
+void RevEng_PAJ7620::setGameSpeed()
 {
-*/
   /*
     NOTE: No version of the PixArt documentation says how to enable game mode
       If you know, please let me know so we can get it added here
@@ -513,13 +513,17 @@ void RevEng_PAJ7620::setGameMode()
 
   // paj7620SelectBank(BANK0);  //gesture flage reg in Bank0
 
-/*
   selectRegisterBank(BANK1);
   writeRegister(0x65, 0x12);
   selectRegisterBank(BANK0);
 }
-*/
 
+void RevEng_PAJ7620::setNormalSpeed()
+{
+  selectRegisterBank(BANK1);
+  writeRegister(0x65, 0x96);    // Taken from datasheet v0.8
+  selectRegisterBank(BANK0);
+}
 
 /**
  * Clear current gesture interrupt vectors without returning gesture value

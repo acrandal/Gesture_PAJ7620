@@ -167,6 +167,10 @@ The program can return to gesture mode with the setGestureMode call:
 
 ## Library History ##
 
+**Version 1.5.0**
+
+- Pulled in game mode code from other forks
+
 **Version 1.4.0**
 
 - Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu> and [Sean Kallaher](https://github.com/skallaher) with input from [Ian](https://github.com/ianfixes) on arduino_ci use
@@ -179,7 +183,6 @@ The program can return to gesture mode with the setGestureMode call:
 - Slimmed down the initialization array from 440 bytes to 100 bytes
 - Created a proper gesture mode register array to allow returning to gesture mode from cursor mode
 - Adjusted README to better align with doxygen formatting/output
-
 
 **Version 1.3.0**
 
@@ -222,4 +225,4 @@ The program can return to gesture mode with the setGestureMode call:
 MIT - see LICENSE file
 
 **Version**  
-1.4.0
+1.5.0
