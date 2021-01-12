@@ -170,6 +170,10 @@ typedef enum {
 /** \note Read/Write */
 #define PAJ7620_ADDR_PS_GAIN              (PAJ7620_ADDR_BASE + 0x44)  // RW
 /** \note Read/Write */
+#define PAJ7620_ADDR_R_IDLE_TIME_0        (PAJ7620_ADDR_BASE + 0x65)  // RW
+/** \note Read/Write */
+#define PAJ7620_ADDR_R_IDLE_TIME_1        (PAJ7620_ADDR_BASE + 0x66)  // RW
+/** \note Read/Write */
 #define PAJ7620_ADDR_IDLE_S1_STEP_0       (PAJ7620_ADDR_BASE + 0x67)  // RW
 /** \note Read/Write */
 #define PAJ7620_ADDR_IDLE_S1_STEP_1       (PAJ7620_ADDR_BASE + 0x68)  // RW
@@ -219,6 +223,18 @@ typedef enum {
 #define PAJ7620_DISABLE                   0x00
 /**@}*/
 
+/** @name Sensor FPS mode values for R_IDLE_TIME 
+ * Written to #PAJ7620_ADDR_R_IDLE_TIME_0
+ * \note These values come directly from PixArt contact/email
+ */
+/**@{*/
+/** Set to "normal" speed of 120 fps*/
+#define PAJ7620_NORMAL_SPEED              0xAC
+/** Set to "game mode" speed of 240 fps*/
+#define PAJ7620_GAME_SPEED                0x30
+/**@}*/
+
+
 /** @name Gesture Bit Masks
  * Return values from gesture I2C memory reads in Bank 0 - 0x43 & 0x44
  *
@@ -234,15 +250,15 @@ typedef enum {
 #define GES_LEFT_FLAG                     0x04
 /** Bit set -> Right gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_RIGHT_FLAG                    0x08
-/** Bit set -> Forward gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_0 */
+/** Bit set -> Forward gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_FORWARD_FLAG                  0x10
-/** Bit set -> Backward gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_0 */
+/** Bit set -> Backward gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_BACKWARD_FLAG                 0x20
-/** Bit set -> Clockwise gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_0 */
+/** Bit set -> Clockwise gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_CLOCKWISE_FLAG                0x40
-/** Bit set -> Anticlockwise gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_0 */
+/** Bit set -> Anticlockwise gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_0 */
 #define GES_ANTI_CLOCKWISE_FLAG           0x80
-/** Bit set -> Wave gesture detected. \note: Read from #PAJ7620_ADDR_GES_RESULT_1 */
+/** Bit set -> Wave gesture detected. \note Read from #PAJ7620_ADDR_GES_RESULT_1 */
 #define GES_WAVE_FLAG                     0x01      // Read from Bank0 - 0x44
 /**@}*/
 
@@ -308,7 +324,7 @@ const unsigned short initRegisterArray[] = {
     0x2908,
     0x3EFF,
     0x5E3D,
-    0x6596,
+    0x6596,       // R_IDLE_TIME LSB - Set sensor speed to 'normal speed' - 120 fps
     0x6797,
     0x69CD,
     0x6A01,
@@ -444,7 +460,8 @@ class RevEng_PAJ7620
     void invertXAxis();             // Invert (toggle) sensor's X (vertical) axis
     void invertYAxis();             // Invert (toggle) sensors' Y (vertical) axis
 
-    void setGameSpeed();            // No documentation for this mode is available (yet)
+    void setNormalSpeed();          // Set sensor sampling rate to 120fps
+    void setGameSpeed();            // Set sensor sampling rate to 240fps
 
     /** @name Gesture mode interface */
     /**@{*/
