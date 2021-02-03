@@ -8,7 +8,7 @@ on:
         required: true
       baseBranch:
         description: "Branch to base release off of"
-        default: "master"
+        default: "develop"
         required: true
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
          with:
            commit-message: "[Automated] Rev Version to ${{github.event.inputs.newVersion}}"
            branch: $NEW_BRANCH_NAME
-           base: "master"
+           base: ${{ github.event.inputs.baseBranch }}
            title: "[Automated] Rev Version to ${{github.event.inputs.newVersion}}"
            body: |
              Automated Update
