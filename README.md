@@ -167,6 +167,9 @@ The program can return to gesture mode with the setGestureMode call:
 
 ## Library History ##
 
+**Version 1.4.1**
+- Fixed serious I2C initialization bug - needed to set memory bank twice to init reliably (see Issue #56)
+
 **Version 1.4.0**
 
 - Work done by [Aaron S. Crandall](https://github.com/acrandal) \<crandall@gonzaga.edu> and [Sean Kallaher](https://github.com/skallaher) with input from [Ian](https://github.com/ianfixes) on arduino_ci use
@@ -222,4 +225,4 @@ The program can return to gesture mode with the setGestureMode call:
 MIT - see LICENSE file
 
 **Version**  
-1.4.0
+1.4.1
