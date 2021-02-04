@@ -2,7 +2,7 @@
   \file RevEng_PAJ7620.h
   \author Aaron S. Crandall
 
-  \version 1.4.0
+  \version 1.4.1
 
   \copyright
   \parblock
