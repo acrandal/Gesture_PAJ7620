@@ -142,7 +142,15 @@ typedef enum {
 #define PAJ7620_ADDR_PS_APPROACH_STATE    (PAJ7620_ADDR_BASE + 0x6B)  // R
 /** \note Readonly */
 #define PAJ7620_ADDR_PS_RAW_DATA          (PAJ7620_ADDR_BASE + 0x6C)  // R
-/** \note Readonly */
+/** \note Readonly - [7:0] */
+#define PAJ7620_ADDR_OBJECT_CENTER_X_LSB  (PAJ7620_ADDR_BASE + 0xAC)  // R
+/** \note Readonly - [4:0] */
+#define PAJ7620_ADDR_OBJECT_CENTER_X_MSB  (PAJ7620_ADDR_BASE + 0xAD)  // R
+/** \note Readonly - [7:0] */
+#define PAJ7620_ADDR_OBJECT_CENTER_Y_LSB  (PAJ7620_ADDR_BASE + 0xAE)  // R
+/** \note Readonly - [4:0] */
+#define PAJ7620_ADDR_OBJECT_CENTER_Y_MSB  (PAJ7620_ADDR_BASE + 0xAF)  // R
+/** \note Readonly - [7:0] */
 #define PAJ7620_ADDR_OBJECT_BRIGHTNESS    (PAJ7620_ADDR_BASE + 0xB0)  // R
 /** \note Readonly - [7:0] */
 #define PAJ7620_ADDR_OBJECT_SIZE_LSB      (PAJ7620_ADDR_BASE + 0xB1)  // R
@@ -493,6 +501,9 @@ class RevEng_PAJ7620
  
     int getObjectBrightness();      // 255 is max
     int getObjectSize();            // 900 is max (30x30 pixel array)
+
+    int getObjectCenterX();         // 0..4096 (likey less like cursor mode)
+    int getObjectCenterY();         // 0..4096 (likey less like cursor mode)
    /**@}*/
 
     /** @name Cursor mode interface */

@@ -186,17 +186,23 @@ Notably, you can pull the "brightness" (IR reflected light) and size (pixels) of
 Brightness is measured on a scale of 0..255 with no units.
 Size is 0..900 where the value is how many pixels of the 30x30 IR camera are picking up an object.
 
-### Object Motion Stats ###
+### Object Motion States in Gesture Mode ###
 
 In Gesture mode, you can get some stats on object visibility and motion.
 
 - sensor.getNoObjectCount();
 - sensor.getNoMotionCount();
+- sensor.getObjectCenterX();
+- sensor.getObjectCenterY();
 
 NoObjectCount reports the number of ticks since an object left the view.
 It reports a value between 0..255. Each increment represents about 7.2ms in normal mode and 4.1ms in game mode.
 
 Similarly, NoMotionCount is ticks since there was motion (even if there is still an object in view, but it's holding still). For some reason it only counts 0..12.
+
+getObjectCenterX and getObjectCenterY return an int with a coordinate for any object in view. They both return 0 if there's no object. The results are in 0..3712.
+NOTE: The X coordinate is reversed in gesture mode by default so 0 is on the right.
+This can be flipped with the invertXAxis() interface, but will also reverse the gestures (GES_LEFT becomes GES_RIGHT, Clockwise becomes Anti-Clockwise).
 
 ---
 
@@ -207,6 +213,7 @@ Similarly, NoMotionCount is ticks since there was motion (even if there is still
 - Implemented "game mode" and "normal" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).
 - Added getObjectSize() and getObjectBrightness() interfaces (Issues #58 & #59).
 - Added getNoMotionCount() and getNoObjectCount interfaces.
+- Added getObjectCenterX() and getObjectCenterY() interfaces in gesture mode.
 
 **Version 1.4.1**
 ￼- Fixed serious I2C initialization bug - needed to set memory bank twice to init reliably (see Issue #56)

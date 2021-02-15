@@ -33,6 +33,8 @@ getObjectBrightness KEYWORD2
 getObjectSize KEYWORD2
 getNoObjectCount KEYWORD2
 getNoMotionCount KEYWORD2
+getObjectCenterX KEYWORD2
+getObjectCenterY KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
