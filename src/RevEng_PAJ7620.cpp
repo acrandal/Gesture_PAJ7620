@@ -659,6 +659,7 @@ int RevEng_PAJ7620::getObjectBrightness()
   return brightness;
 }
 
+
 /**
  * Read object's size (in pixels)
  * 
@@ -677,4 +678,38 @@ int RevEng_PAJ7620::getObjectSize()
   result = result << 8;
   result |= data0;
   return result;
+}
+
+
+/**
+ * Get how long since the object left the view in gesture mode
+ * 
+ * \par
+ * When an object has left the sensor's view, this register starts counting up.
+ *  It's counting in ticks, roughly one per 7.2ms. It maxes out at 255, which
+ *  happens at about 1830ms
+ * \return int count: value 0..255
+ */
+int RevEng_PAJ7620::getNoObjectCount()
+{
+  uint8_t data0 = 0;
+  readRegister(PAJ7620_ADDR_NO_OBJECT_COUNT, 1, &data0);
+  return (int)data0;
+}
+/**
+ * Get how long no motion has been seen in gesture mode
+ * 
+ * \par
+ * This counts how long it has been since motions has occurred in front of the sensor.
+ * This counts even if there's an object in view when it isn't moving.
+ * Eratta: This *should* return 0..255, but seems to stop at 12.
+ * Each "count" is probably 7.2ms, but it's been tough to figure out.
+ * \return int count: value 0..12
+ */
+
+int RevEng_PAJ7620::getNoMotionCount()
+{
+  uint8_t data0 = 0;
+  readRegister(PAJ7620_ADDR_NO_MOTION_COUNT, 1, &data0);
+  return (int)data0;
 }
