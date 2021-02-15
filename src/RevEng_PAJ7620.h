@@ -469,9 +469,6 @@ class RevEng_PAJ7620
     void setCursorMode();           // Put sensor into cursor mode
     /**@}*/
 
-    // Note: Experimentation with inverting the sensor's axis has led to some odd
-    //  behavior. Notably, the physical aim of the sensor changes to offcenter.
-    //  No, I don't know why -- Crandall
     void invertXAxis();             // Invert (toggle) sensor's X (vertical) axis
     void invertYAxis();             // Invert (toggle) sensors' Y (vertical) axis
 
@@ -486,8 +483,11 @@ class RevEng_PAJ7620
     void setGestureEntryTime(unsigned long newGestureEntryTime);
     void setGestureExitTime(unsigned long newGestureExitTime);
 
-    int getWaveCount();
-    /**@}*/
+    int getWaveCount();             // 0..15 waves
+ 
+    int getObjectBrightness();      // 255 is max
+    int getObjectSize();            // 900 is max (30x30 pixel array)
+   /**@}*/
 
     /** @name Cursor mode interface */
     /**@{*/
@@ -502,9 +502,6 @@ class RevEng_PAJ7620
     //int getProximityDistance();     // Read an object's "proximity 255..0"
 
     /**@}*/
-
-    int getObjectBrightness();      // 255 is max
-    //int getObjectSize();            // 900 is max (30x30 pixel array)
 
   private:
     unsigned long gestureEntryTime; // User set gesture entry delay in ms (default: 0)

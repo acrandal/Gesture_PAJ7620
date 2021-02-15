@@ -29,6 +29,8 @@ invertXAxis KEYWORD2
 invertYAxis KEYWORD2
 setGameSpeed KEYWORD2
 setNormalSpeed KEYWORD2
+getObjectBrightness KEYWORD2
+getObjectSize KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
