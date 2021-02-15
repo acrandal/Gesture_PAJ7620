@@ -31,6 +31,8 @@ setGameSpeed KEYWORD2
 setNormalSpeed KEYWORD2
 getObjectBrightness KEYWORD2
 getObjectSize KEYWORD2
+getNoObjectCount KEYWORD2
+getNoMotionCount KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

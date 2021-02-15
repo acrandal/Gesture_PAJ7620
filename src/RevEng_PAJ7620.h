@@ -148,8 +148,12 @@ typedef enum {
 #define PAJ7620_ADDR_OBJECT_SIZE_LSB      (PAJ7620_ADDR_BASE + 0xB1)  // R
 /** \note Readonly - [3:0] */
 #define PAJ7620_ADDR_OBJECT_SIZE_MSB      (PAJ7620_ADDR_BASE + 0xB2)  // R
-/** \note Readonly */
+/** \note Readonly - [4:0] */
 #define PAJ7620_ADDR_WAVE_COUNT           (PAJ7620_ADDR_BASE + 0xB7)  // R
+/** \note Readonly */
+#define PAJ7620_ADDR_NO_OBJECT_COUNT      (PAJ7620_ADDR_BASE + 0xB8)  // R
+/** \note Readonly */
+#define PAJ7620_ADDR_NO_MOTION_COUNT      (PAJ7620_ADDR_BASE + 0xB9)  // R
 /** \note Readonly */
 #define PAJ7620_ADDR_GES_RESULT_0         (PAJ7620_ADDR_BASE + 0x43)  // R
 /** \note Readonly */
@@ -484,6 +488,8 @@ class RevEng_PAJ7620
     void setGestureExitTime(unsigned long newGestureExitTime);
 
     int getWaveCount();             // 0..15 waves
+    int getNoObjectCount();         // 0..255 ticks (about 7.2ms each in normal, 4.1ms in game)
+    int getNoMotionCount();         // 0..12 ticks
  
     int getObjectBrightness();      // 255 is max
     int getObjectSize();            // 900 is max (30x30 pixel array)
