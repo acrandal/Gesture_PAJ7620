@@ -206,13 +206,23 @@ Object Size and Brightness</h2>
 <li>sensor.getObjectSize();</li>
 </ul>
 <p>Brightness is measured on a scale of 0..255 with no units. Size is 0..900 where the value is how many pixels of the 30x30 IR camera are picking up an object.</p>
+<h2><a class="anchor" id="autotoc_md15"></a>
+Object Motion Stats</h2>
+<p>In Gesture mode, you can get some stats on object visibility and motion.</p>
+<ul>
+<li>sensor.getNoObjectCount();</li>
+<li>sensor.getNoMotionCount();</li>
+</ul>
+<p>NoObjectCount reports the number of ticks since an object left the view. It reports a value between 0..255. Each increment represents about 7.2ms in normal mode and 4.1ms in game mode.</p>
+<p>Similarly, NoMotionCount is ticks since there was motion (even if there is still an object in view, but it's holding still). For some reason it only counts 0..12.</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 Library History</h1>
 <p><b>Version 1.5.0</b></p>
 <ul>
 <li>Implemented "game mode" and "normal" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).</li>
 <li>Added getObjectSize() and getObjectBrightness() interfaces (Issues #58 &amp; #59).</li>
+<li>Added getNoMotionCount() and getNoObjectCount interfaces.</li>
 </ul>
 <p><b>Version 1.4.1</b> ￼- Fixed serious I2C initialization bug - needed to set memory bank twice to init reliably (see Issue #56)</p>
 <p><b>Version 1.4.0</b></p>

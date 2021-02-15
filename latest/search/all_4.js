@@ -23,7 +23,9 @@ var searchData=
   ['gesture_20sensor_20_2d_20paj7620_20_2f_20paj7620u2_20_2f_20paj7620f2_30',['Gesture Sensor - PAJ7620 / PAJ7620U2 / PAJ7620F2',['../index.html',1,'']]],
   ['getcursorx_31',['getCursorX',['../classRevEng__PAJ7620.html#af2fad47c1c4dc03d8f674cdd85db54c2',1,'RevEng_PAJ7620']]],
   ['getcursory_32',['getCursorY',['../classRevEng__PAJ7620.html#a30c344739b7f1005ae11f0151977e575',1,'RevEng_PAJ7620']]],
-  ['getobjectbrightness_33',['getObjectBrightness',['../classRevEng__PAJ7620.html#aea2006ff53c2e00022f78be117eaf767',1,'RevEng_PAJ7620']]],
-  ['getobjectsize_34',['getObjectSize',['../classRevEng__PAJ7620.html#aa3c1206983e49a8810caad686d8bdca0',1,'RevEng_PAJ7620']]],
-  ['getwavecount_35',['getWaveCount',['../classRevEng__PAJ7620.html#a5c2529ffeed25771fefc2d55a4a2c8c0',1,'RevEng_PAJ7620']]]
+  ['getnomotioncount_33',['getNoMotionCount',['../classRevEng__PAJ7620.html#aa7f5d23d2377f272f74f9ec5c76f0fea',1,'RevEng_PAJ7620']]],
+  ['getnoobjectcount_34',['getNoObjectCount',['../classRevEng__PAJ7620.html#a42f9166801b8119682d9ac6eb07d791e',1,'RevEng_PAJ7620']]],
+  ['getobjectbrightness_35',['getObjectBrightness',['../classRevEng__PAJ7620.html#aea2006ff53c2e00022f78be117eaf767',1,'RevEng_PAJ7620']]],
+  ['getobjectsize_36',['getObjectSize',['../classRevEng__PAJ7620.html#aa3c1206983e49a8810caad686d8bdca0',1,'RevEng_PAJ7620']]],
+  ['getwavecount_37',['getWaveCount',['../classRevEng__PAJ7620.html#a5c2529ffeed25771fefc2d55a4a2c8c0',1,'RevEng_PAJ7620']]]
 ];
