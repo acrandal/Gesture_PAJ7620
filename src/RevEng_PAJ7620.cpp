@@ -632,3 +632,19 @@ Gesture RevEng_PAJ7620::readGesture()
   }
   return result;
 }
+
+/**
+ * Read object's "brightness"
+ * 
+ * \par
+ * Objects in view have their IR reflection measured. This interface returns a
+ *  measure of this brightness from 0..255
+ * \return int brightness: brightness value 0..255
+ */
+int RevEng_PAJ7620::getObjectBrightness()
+{
+  uint8_t brightness = 0;
+  readRegister(PAJ7620_ADDR_OBJECT_BRIGHTNESS, 1, &brightness);
+  return brightness;
+
+}
