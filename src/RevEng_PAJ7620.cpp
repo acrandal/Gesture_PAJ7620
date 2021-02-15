@@ -826,10 +826,11 @@ int RevEng_PAJ7620::getObjectVelocityY()
 
 bool RevEng_PAJ7620::isObjectInView()
 {
-  if(getObjectCenterX() > 0 || getObjectCenterY()) {
-    return true;
+  if(getNoObjectCount())
+  {
+    return false;
   }
-  return false;
+  return true;
 }
 
 
