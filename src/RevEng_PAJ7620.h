@@ -162,6 +162,14 @@ typedef enum {
 #define PAJ7620_ADDR_NO_OBJECT_COUNT      (PAJ7620_ADDR_BASE + 0xB8)  // R
 /** \note Readonly */
 #define PAJ7620_ADDR_NO_MOTION_COUNT      (PAJ7620_ADDR_BASE + 0xB9)  // R
+/** \note Readonly - [7:0] */
+#define PAJ7620_ADDR_OBJECT_VEL_X_LSB     (PAJ7620_ADDR_BASE + 0xC3)  // R
+/** \note Readonly - [3:0] */
+#define PAJ7620_ADDR_OBJECT_VEL_X_MSB     (PAJ7620_ADDR_BASE + 0xC4)  // R
+/** \note Readonly - [7:0] */
+#define PAJ7620_ADDR_OBJECT_VEL_Y_LSB     (PAJ7620_ADDR_BASE + 0xC5)  // R
+/** \note Readonly - [3:0] */
+#define PAJ7620_ADDR_OBJECT_VEL_Y_MSB     (PAJ7620_ADDR_BASE + 0xC6)  // R
 /** \note Readonly */
 #define PAJ7620_ADDR_GES_RESULT_0         (PAJ7620_ADDR_BASE + 0x43)  // R
 /** \note Readonly */
@@ -504,6 +512,12 @@ class RevEng_PAJ7620
 
     int getObjectCenterX();         // 0..4096 (likey less like cursor mode)
     int getObjectCenterY();         // 0..4096 (likey less like cursor mode)
+    bool isObjectInView();          // True if an object is in view
+
+    int getObjectVelocityX();       // Velocity of object on X direction
+    int getObjectVelocityY();       // Velocity of object on Y direction
+    int getObjectVelocityX_raw();   // Velocity of object on X direction - RAW data
+    int getObjectVelocityY_raw();   // Velocity of object on Y direction - RAW data
    /**@}*/
 
     /** @name Cursor mode interface */

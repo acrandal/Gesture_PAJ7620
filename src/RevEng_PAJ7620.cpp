@@ -766,4 +766,70 @@ int RevEng_PAJ7620::getObjectCenterY()
   return result;
 }
 
+int RevEng_PAJ7620::getObjectVelocityX_raw()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_X_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_X_MSB, 1, &data1);
+  uint8_t neg_flag = data1 & 0x08;
+  data1 &= 0x07;      // Mask off high bits (unused) - bit 3 is a negative flag
+  result |= data1;
+  result = result << 8;
+  result |= data0;
+  if(neg_flag) { result *= -1; }
+
+  return result;
+}
+
+
+int RevEng_PAJ7620::getObjectVelocityY_raw()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_Y_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_Y_MSB, 1, &data1);
+  uint8_t neg_flag = data1 & 0x08;
+  data1 &= 0x07;      // Mask off high bits (unused) - bit 3 is a negative flag
+  result |= data1;
+  result = result << 8;
+  result |= data0;
+  if(neg_flag) { result *= -1; }
+
+  return result;
+}
+
+
+int RevEng_PAJ7620::getObjectVelocityX()
+{
+  if(!isObjectInView()) {
+    return 0;
+  } else {
+    return getObjectVelocityX_raw();
+  }
+}
+
+
+int RevEng_PAJ7620::getObjectVelocityY()
+{
+  if(!isObjectInView()) {
+    return 0;
+  } else {
+    return getObjectVelocityY_raw();
+  }
+}
+
+
+bool RevEng_PAJ7620::isObjectInView()
+{
+  if(getObjectCenterX() > 0 || getObjectCenterY()) {
+    return true;
+  }
+  return false;
+}
+
 
