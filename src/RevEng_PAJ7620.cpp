@@ -91,6 +91,17 @@ uint8_t RevEng_PAJ7620::begin(TwoWire *chosenWireHandle)
   delayMicroseconds(700);	            // Wait 700us for PAJ7620U2 to stabilize
                                       // Reason: see v0.8 of 7620 documentation
   wireHandle->begin();
+
+  /* There's two register banks (0 & 1) to be selected between.
+   * BANK0 is where most data collection operations happen, so it's default.
+   * Selecting the bank is done here twice for a reason. When the 7620 turns
+   *  on, the I2C bus is sleeping. When you first read/write to the bus
+   *  the 7620 wakes up, but it sometimes misses that first message.
+   * Running the 7620 on an arduino with the USB power, a single call here
+   *  usually works, but as soon as you use an external power bus it often
+   *  fails to properly initialize and begin returns an error.
+   */
+  selectRegisterBank(BANK0);          // This is done twice on purpose
   selectRegisterBank(BANK0);          // Default operations on BANK0
 
   if( !isPAJ7620UDevice() ) {

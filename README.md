@@ -193,7 +193,10 @@ Size is 0..900 where the value is how many pixels of the 30x30 IR camera are pic
 **Version 1.5.0**
 
 - Implemented "game mode" and "normal" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).
-- Added getObjectSize() and getObjectBrightness() interfaces
+- Added getObjectSize() and getObjectBrightness() interfaces (Issues #58 & #59).
+
+**Version 1.4.1**
+￼- Fixed serious I2C initialization bug - needed to set memory bank twice to init reliably (see Issue #56)
 
 **Version 1.4.0**
 
