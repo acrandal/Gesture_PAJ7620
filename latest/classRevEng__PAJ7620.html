@@ -124,6 +124,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c2529ffeed25771fefc2d55a4a2c8c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a5c2529ffeed25771fefc2d55a4a2c8c0">getWaveCount</a> ()</td></tr>
 <tr class="memdesc:a5c2529ffeed25771fefc2d55a4a2c8c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current count of waves by user.  <a href="classRevEng__PAJ7620.html#a5c2529ffeed25771fefc2d55a4a2c8c0">More...</a><br /></td></tr>
 <tr class="separator:a5c2529ffeed25771fefc2d55a4a2c8c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea2006ff53c2e00022f78be117eaf767"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#aea2006ff53c2e00022f78be117eaf767">getObjectBrightness</a> ()</td></tr>
+<tr class="memdesc:aea2006ff53c2e00022f78be117eaf767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read object's "brightness".  <a href="classRevEng__PAJ7620.html#aea2006ff53c2e00022f78be117eaf767">More...</a><br /></td></tr>
+<tr class="separator:aea2006ff53c2e00022f78be117eaf767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3c1206983e49a8810caad686d8bdca0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#aa3c1206983e49a8810caad686d8bdca0">getObjectSize</a> ()</td></tr>
+<tr class="memdesc:aa3c1206983e49a8810caad686d8bdca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read object's size (in pixels)  <a href="classRevEng__PAJ7620.html#aa3c1206983e49a8810caad686d8bdca0">More...</a><br /></td></tr>
+<tr class="separator:aa3c1206983e49a8810caad686d8bdca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Cursor mode interface</div></td></tr>
 <tr class="memitem:a2e6a10f4016440ba76444af734247b71"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a2e6a10f4016440ba76444af734247b71">isCursorInView</a> ()</td></tr>
 <tr class="memdesc:a2e6a10f4016440ba76444af734247b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether an object is in view as a cursor.  <a href="classRevEng__PAJ7620.html#a2e6a10f4016440ba76444af734247b71">More...</a><br /></td></tr>
@@ -324,6 +330,48 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int : Y coordinate of cursor </dd></dl>
+
+</div>
+</div>
+<a id="aea2006ff53c2e00022f78be117eaf767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea2006ff53c2e00022f78be117eaf767">&#9670;&nbsp;</a></span>getObjectBrightness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int RevEng_PAJ7620::getObjectBrightness </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read object's "brightness". </p>
+<dl class="section user"><dt></dt><dd>Objects in view have their IR reflection measured. This interface returns a measure of this brightness from 0..255 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int brightness: brightness value 0..255 </dd></dl>
+
+</div>
+</div>
+<a id="aa3c1206983e49a8810caad686d8bdca0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3c1206983e49a8810caad686d8bdca0">&#9670;&nbsp;</a></span>getObjectSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int RevEng_PAJ7620::getObjectSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read object's size (in pixels) </p>
+<dl class="section user"><dt></dt><dd>The sensor has a 30x30 IR LED array. This interface returns a count of how many pixels are part of the object in view being tracked. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int size: value 0..900 </dd></dl>
 
 </div>
 </div>
