@@ -175,6 +175,17 @@ The biggest side effect of using game speed is that if you're polling the sensor
 
 NOTE: if you change modes (gesture to cursor or cursor to gesture) the speed shall return to normal speed until you call setGameSpeed() again.
 
+### Object Size and Brightness ###
+
+In Gesture mode, there are metrics about the visible object available.
+Notably, you can pull the "brightness" (IR reflected light) and size (pixels) of any object in view.
+
+- sensor.getObjectBrightness();
+- sensor.getObjectSize();
+
+Brightness is measured on a scale of 0..255 with no units.
+Size is 0..900 where the value is how many pixels of the 30x30 IR camera are picking up an object.
+
 ---
 
 ## Library History ##
@@ -182,6 +193,7 @@ NOTE: if you change modes (gesture to cursor or cursor to gesture) the speed sha
 **Version 1.5.0**
 
 - Implemented "game mode" and "normal" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).
+- Added getObjectSize() and getObjectBrightness() interfaces
 
 **Version 1.4.0**
 

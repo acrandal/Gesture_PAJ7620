@@ -143,6 +143,12 @@ typedef enum {
 /** \note Readonly */
 #define PAJ7620_ADDR_PS_RAW_DATA          (PAJ7620_ADDR_BASE + 0x6C)  // R
 /** \note Readonly */
+#define PAJ7620_ADDR_OBJECT_BRIGHTNESS    (PAJ7620_ADDR_BASE + 0xB0)  // R
+/** \note Readonly - [7:0] */
+#define PAJ7620_ADDR_OBJECT_SIZE_LSB      (PAJ7620_ADDR_BASE + 0xB1)  // R
+/** \note Readonly - [3:0] */
+#define PAJ7620_ADDR_OBJECT_SIZE_MSB      (PAJ7620_ADDR_BASE + 0xB2)  // R
+/** \note Readonly */
 #define PAJ7620_ADDR_WAVE_COUNT           (PAJ7620_ADDR_BASE + 0xB7)  // R
 /** \note Readonly */
 #define PAJ7620_ADDR_GES_RESULT_0         (PAJ7620_ADDR_BASE + 0x43)  // R
@@ -161,6 +167,15 @@ typedef enum {
 /** \note Readonly */
 #define PAJ7620_ADDR_CURSOR_INT           (PAJ7620_ADDR_BASE + 0x44)  // R
 /**@}*/
+
+// Proximity Registers - Bank 0
+//  Documentation best in v0.8 datasheet
+//  Only available in Proximity Detection (PS) mode
+/** \note Readonly - Single bit[0] - Approach == 1, Not approach == 0 */
+#define PAJ7620_ADDR_PS_APPROACH_STATE    (PAJ7620_ADDR_BASE + 0x6B)  // R
+/** \note Readonly - PS 8 bit data - 255 is "near", lower is "further"*/
+#define PAJ7620_ADDR_S_AVE_Y_BRIGHTNESS   (PAJ7620_ADDR_BASE + 0x6C)  // R
+
 
 // REGISTER BANK 1
 /** @name REGISTER BANK 1
@@ -454,9 +469,6 @@ class RevEng_PAJ7620
     void setCursorMode();           // Put sensor into cursor mode
     /**@}*/
 
-    // Note: Experimentation with inverting the sensor's axis has led to some odd
-    //  behavior. Notably, the physical aim of the sensor changes to offcenter.
-    //  No, I don't know why -- Crandall
     void invertXAxis();             // Invert (toggle) sensor's X (vertical) axis
     void invertYAxis();             // Invert (toggle) sensors' Y (vertical) axis
 
@@ -471,8 +483,11 @@ class RevEng_PAJ7620
     void setGestureEntryTime(unsigned long newGestureEntryTime);
     void setGestureExitTime(unsigned long newGestureExitTime);
 
-    int getWaveCount();
-    /**@}*/
+    int getWaveCount();             // 0..15 waves
+ 
+    int getObjectBrightness();      // 255 is max
+    int getObjectSize();            // 900 is max (30x30 pixel array)
+   /**@}*/
 
     /** @name Cursor mode interface */
     /**@{*/
@@ -482,6 +497,11 @@ class RevEng_PAJ7620
     int getCursorY();               // Get cusors's Y axis location
     /**@}*/
 
+    /** @name Proxmity mode interface */
+    /**@{*/
+    //int getProximityDistance();     // Read an object's "proximity 255..0"
+
+    /**@}*/
 
   private:
     unsigned long gestureEntryTime; // User set gesture entry delay in ms (default: 0)

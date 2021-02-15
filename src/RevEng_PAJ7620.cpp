@@ -632,3 +632,38 @@ Gesture RevEng_PAJ7620::readGesture()
   }
   return result;
 }
+
+/**
+ * Read object's "brightness"
+ * 
+ * \par
+ * Objects in view have their IR reflection measured. This interface returns a
+ *  measure of this brightness from 0..255
+ * \return int brightness: brightness value 0..255
+ */
+int RevEng_PAJ7620::getObjectBrightness()
+{
+  uint8_t brightness = 0;
+  readRegister(PAJ7620_ADDR_OBJECT_BRIGHTNESS, 1, &brightness);
+  return brightness;
+}
+
+/**
+ * Read object's size (in pixels)
+ * 
+ * \par
+ * The sensor has a 30x30 IR LED array. This interface returns a count of
+ *  how many pixels are part of the object in view being tracked.
+ * \return int size: value 0..900
+ */
+int RevEng_PAJ7620::getObjectSize()
+{
+  uint8_t data0, data1 = 0;
+  int result = 0;
+  readRegister(PAJ7620_ADDR_OBJECT_SIZE_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_SIZE_MSB, 1, &data1);
+  result = data1;
+  result = result << 8;
+  result |= data0;
+  return result;
+}
