@@ -766,6 +766,13 @@ int RevEng_PAJ7620::getObjectCenterY()
   return result;
 }
 
+/**
+ * Gets object's current X velocity's raw value
+ * 
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : X velocity -63..63
+ */
 int RevEng_PAJ7620::getObjectVelocityX_raw()
 {
   int result = 0;
@@ -774,17 +781,22 @@ int RevEng_PAJ7620::getObjectVelocityX_raw()
 
   readRegister(PAJ7620_ADDR_OBJECT_VEL_X_LSB, 1, &data0);
   readRegister(PAJ7620_ADDR_OBJECT_VEL_X_MSB, 1, &data1);
-  uint8_t neg_flag = data1 & 0x08;
-  data1 &= 0x07;      // Mask off high bits (unused) - bit 3 is a negative flag
-  result |= data1;
-  result = result << 8;
-  result |= data0;
-  if(neg_flag) { result *= -1; }
+
+  data0 &= 0x3F;        // Yup, see wiki for reason
+  result = data0;
+  if(data1) { result *= -1; }
 
   return result;
 }
 
 
+/**
+ * Gets object's current Y velocity's raw value
+ * 
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : Y velocity -63..63
+ */
 int RevEng_PAJ7620::getObjectVelocityY_raw()
 {
   int result = 0;
@@ -793,17 +805,23 @@ int RevEng_PAJ7620::getObjectVelocityY_raw()
 
   readRegister(PAJ7620_ADDR_OBJECT_VEL_Y_LSB, 1, &data0);
   readRegister(PAJ7620_ADDR_OBJECT_VEL_Y_MSB, 1, &data1);
-  uint8_t neg_flag = data1 & 0x08;
-  data1 &= 0x07;      // Mask off high bits (unused) - bit 3 is a negative flag
-  result |= data1;
-  result = result << 8;
-  result |= data0;
-  if(neg_flag) { result *= -1; }
+  data0 &= 0x3F;        // Yup, see wiki for reason
+  result = data0;
+  if(data1) { result *= -1; }
 
   return result;
 }
 
 
+/**
+ * Gets object's current X velocity's value
+ * 
+ * \par
+ * Value filtered to zero if object not in view
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : X velocity -63..63
+ */
 int RevEng_PAJ7620::getObjectVelocityX()
 {
   if(!isObjectInView()) {
@@ -814,6 +832,15 @@ int RevEng_PAJ7620::getObjectVelocityX()
 }
 
 
+/**
+ * Gets object's current Y velocity's value
+ * 
+ * \par
+ * Value filtered to zero if object not in view
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : Y velocity -63..63
+ */
 int RevEng_PAJ7620::getObjectVelocityY()
 {
   if(!isObjectInView()) {
@@ -824,6 +851,12 @@ int RevEng_PAJ7620::getObjectVelocityY()
 }
 
 
+/**
+ * Gets whether an object is in view or not
+ * 
+ * \param none
+ * \return bool : true if object in view
+ */
 bool RevEng_PAJ7620::isObjectInView()
 {
   if(getNoObjectCount())
@@ -832,5 +865,3 @@ bool RevEng_PAJ7620::isObjectInView()
   }
   return true;
 }
-
-

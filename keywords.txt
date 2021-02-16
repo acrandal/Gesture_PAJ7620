@@ -35,6 +35,11 @@ getNoObjectCount KEYWORD2
 getNoMotionCount KEYWORD2
 getObjectCenterX KEYWORD2
 getObjectCenterY KEYWORD2
+isObjectInView KEYWORD2
+getObjectVelocityX KEYWORD2
+getObjectVelocityY KEYWORD2
+getObjectVelocityX_raw KEYWORD2
+getObjectVelocityY_raw KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
