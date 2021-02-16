@@ -635,7 +635,7 @@ Gesture RevEng_PAJ7620::readGesture()
         break;
 
       default:
-        getGesturesReg1(&data1);      // Bank 1 (Reg 0x44) has wave flag
+        getGesturesReg1(&data1);      // Bank 0 (Reg 0x44) has wave flag
         if (data1 == GES_WAVE_FLAG)
           { result = GES_WAVE; }
         break;
@@ -643,6 +643,7 @@ Gesture RevEng_PAJ7620::readGesture()
   }
   return result;
 }
+
 
 /**
  * Read object's "brightness"
@@ -654,7 +655,7 @@ Gesture RevEng_PAJ7620::readGesture()
  */
 int RevEng_PAJ7620::getObjectBrightness()
 {
-  uint8_t brightness = 0;
+  uint8_t brightness = 0x00;
   readRegister(PAJ7620_ADDR_OBJECT_BRIGHTNESS, 1, &brightness);
   return brightness;
 }
@@ -670,7 +671,7 @@ int RevEng_PAJ7620::getObjectBrightness()
  */
 int RevEng_PAJ7620::getObjectSize()
 {
-  uint8_t data0, data1 = 0;
+  uint8_t data0, data1 = 0x00;
   int result = 0;
   readRegister(PAJ7620_ADDR_OBJECT_SIZE_LSB, 1, &data0);
   readRegister(PAJ7620_ADDR_OBJECT_SIZE_MSB, 1, &data1);
@@ -688,14 +689,16 @@ int RevEng_PAJ7620::getObjectSize()
  * When an object has left the sensor's view, this register starts counting up.
  *  It's counting in ticks, roughly one per 7.2ms. It maxes out at 255, which
  *  happens at about 1830ms
- * \return int count: value 0..255
+ * \return int : ticks value 0..255
  */
 int RevEng_PAJ7620::getNoObjectCount()
 {
-  uint8_t data0 = 0;
+  uint8_t data0 = 0x00;
   readRegister(PAJ7620_ADDR_NO_OBJECT_COUNT, 1, &data0);
   return (int)data0;
 }
+
+
 /**
  * Get how long no motion has been seen in gesture mode
  * 
@@ -704,12 +707,161 @@ int RevEng_PAJ7620::getNoObjectCount()
  * This counts even if there's an object in view when it isn't moving.
  * Eratta: This *should* return 0..255, but seems to stop at 12.
  * Each "count" is probably 7.2ms, but it's been tough to figure out.
- * \return int count: value 0..12
+ * \return int : ticks value 0..12
  */
-
 int RevEng_PAJ7620::getNoMotionCount()
 {
-  uint8_t data0 = 0;
+  uint8_t data0 = 0x00;
   readRegister(PAJ7620_ADDR_NO_MOTION_COUNT, 1, &data0);
   return (int)data0;
+}
+
+
+/**
+ * Gets Gesture object's current X location
+ * 
+ * \note Only works in gesture mode - default coordinates are 0 on right
+ * \note Range seems to be 0..3712 in default gesture mode
+ * \param none
+ * \return int : X coordinate of cursor
+ */
+int RevEng_PAJ7620::getObjectCenterX()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_CENTER_X_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_CENTER_X_MSB, 1, &data1);
+  data1 &= 0x1F;      // Mask off high bits (unused)
+  result |= data1;
+  result = result << 8;
+  result |= data0;
+
+  return result;
+}
+
+
+/**
+ * Gets Gesture object's current Y location
+ * 
+ * \note Only works in gesture mode - default coordinates are 0 on top
+ * \note Range seems to be 0..3712 in default gesture mode
+ * \param none
+ * \return int : Y coordinate of cursor
+ */
+int RevEng_PAJ7620::getObjectCenterY()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_CENTER_Y_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_CENTER_Y_MSB, 1, &data1);
+  data1 &= 0x1F;      // Mask off high bits (unused)
+  result |= data1;
+  result = result << 8;
+  result |= data0;
+
+  return result;
+}
+
+/**
+ * Gets object's current X velocity's raw value
+ * 
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : X velocity -63..63
+ */
+int RevEng_PAJ7620::getObjectVelocityX_raw()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_X_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_X_MSB, 1, &data1);
+
+  data0 &= 0x3F;        // Yup, see wiki for reason
+  result = data0;
+  if(data1) { result *= -1; }
+
+  return result;
+}
+
+
+/**
+ * Gets object's current Y velocity's raw value
+ * 
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : Y velocity -63..63
+ */
+int RevEng_PAJ7620::getObjectVelocityY_raw()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_Y_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_Y_MSB, 1, &data1);
+  data0 &= 0x3F;        // Yup, see wiki for reason
+  result = data0;
+  if(data1) { result *= -1; }
+
+  return result;
+}
+
+
+/**
+ * Gets object's current X velocity's value
+ * 
+ * \par
+ * Value filtered to zero if object not in view
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : X velocity -63..63
+ */
+int RevEng_PAJ7620::getObjectVelocityX()
+{
+  if(!isObjectInView()) {
+    return 0;
+  } else {
+    return getObjectVelocityX_raw();
+  }
+}
+
+
+/**
+ * Gets object's current Y velocity's value
+ * 
+ * \par
+ * Value filtered to zero if object not in view
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : Y velocity -63..63
+ */
+int RevEng_PAJ7620::getObjectVelocityY()
+{
+  if(!isObjectInView()) {
+    return 0;
+  } else {
+    return getObjectVelocityY_raw();
+  }
+}
+
+
+/**
+ * Gets whether an object is in view or not
+ * 
+ * \param none
+ * \return bool : true if object in view
+ */
+bool RevEng_PAJ7620::isObjectInView()
+{
+  if(getNoObjectCount())
+  {
+    return false;
+  }
+  return true;
 }

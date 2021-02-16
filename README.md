@@ -186,17 +186,33 @@ Notably, you can pull the "brightness" (IR reflected light) and size (pixels) of
 Brightness is measured on a scale of 0..255 with no units.
 Size is 0..900 where the value is how many pixels of the 30x30 IR camera are picking up an object.
 
-### Object Motion Stats ###
+### Object Motion States in Gesture Mode ###
 
 In Gesture mode, you can get some stats on object visibility and motion.
 
 - sensor.getNoObjectCount();
 - sensor.getNoMotionCount();
+- sensor.getObjectCenterX();
+- sensor.getObjectCenterY();
+- getObjectVelocityX();
+- getObjectVelocityY();
+- isObjectInView();
 
 NoObjectCount reports the number of ticks since an object left the view.
 It reports a value between 0..255. Each increment represents about 7.2ms in normal mode and 4.1ms in game mode.
 
 Similarly, NoMotionCount is ticks since there was motion (even if there is still an object in view, but it's holding still). For some reason it only counts 0..12.
+
+getObjectCenterX and getObjectCenterY return an int with a coordinate for any object in view. They both return 0 if there's no object. The results are in 0..3712.
+NOTE: The X coordinate is reversed in gesture mode by default so 0 is on the right.
+This can be flipped with the invertXAxis() interface, but will also reverse the gestures (GES_LEFT becomes GES_RIGHT, Clockwise becomes Anti-Clockwise).
+
+getObjectVelocityX and getObjectVelocityY poll for a velocity of any object crossing the sensor's view.
+They return 0 if no object is in view or if the object isn't moving.
+They return an int from -63 to 63.
+Negative and positive refer to the direction of travel.
+
+isObjectInView returns true if there's an object in view.
 
 ---
 
@@ -206,10 +222,13 @@ Similarly, NoMotionCount is ticks since there was motion (even if there is still
 
 - Implemented "game mode" and "normal" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).
 - Added getObjectSize() and getObjectBrightness() interfaces (Issues #58 & #59).
-- Added getNoMotionCount() and getNoObjectCount interfaces.
+- Added getNoMotionCount() and getNoObjectCount interfaces (Issues #62).
+- Added getObjectCenterX() and getObjectCenterY() interfaces in gesture mode.
+- Added getObjectVelocityX(), getObjectVelocityY() and isObjectInView() interfaces in gesture mode. (Issues #64)
 
 **Version 1.4.1**
-￼- Fixed serious I2C initialization bug - needed to set memory bank twice to init reliably (see Issue #56)
+
+- Fixed serious I2C initialization bug - needed to set memory bank twice to init reliably (see Issue #56)
 
 **Version 1.4.0**
 
