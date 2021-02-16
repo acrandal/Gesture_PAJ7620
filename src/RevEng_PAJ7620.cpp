@@ -865,3 +865,39 @@ bool RevEng_PAJ7620::isObjectInView()
   }
   return true;
 }
+
+
+/**
+ * Gets which quadrant an object is in
+ * 
+ * \param none
+ * \return Corner : [NW, NW, SW, SE] quadrants, middle/buffer, NONE for no object in view
+ */
+Corner RevEng_PAJ7620::getCorner()
+{
+  Corner ret = CORNER_NONE;
+  int object_x, object_y = 0;
+
+  if( !isObjectInView() ) {   // Bail if no object in view
+    return CORNER_NONE;
+  }
+
+  object_x = getObjectCenterX();
+  object_y = getObjectCenterY();
+
+  if( object_x < CORNERS_BUFFER_LOWER && object_y < CORNERS_BUFFER_LOWER ) {
+    return CORNER_NE;
+  }
+  else if( object_x > CORNERS_BUFFER_UPPER && object_y < CORNERS_BUFFER_LOWER ) {
+    return CORNER_NW;
+  }
+  else if( object_x > CORNERS_BUFFER_UPPER && object_y > CORNERS_BUFFER_UPPER ) {
+    return CORNER_SW;
+  }
+  else if( object_x < CORNERS_BUFFER_LOWER && object_y > CORNERS_BUFFER_UPPER ) {
+    return CORNER_SE;
+  }
+  else {
+    return CORNER_MIDDLE;     // Is in view, but not fully in a corner yet
+  }
+}
