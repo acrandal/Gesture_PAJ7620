@@ -88,9 +88,28 @@ enum Gesture {
   \author Wuruibin / seeed technology inc.
  */
 typedef enum {
-  BANK0 = 0,
-  BANK1,
+  BANK0 = 0,            /**< Memory bank 0 */
+  BANK1,                /**< Memory bank 1 */
 } Bank_e;
+
+
+/**
+ * Used for reading the corners in corners mode and PIN mode
+ * \note Width of "middle" set by CORNERS_BUFFER_WIDTH_PCT value
+ */
+typedef enum {
+  CORNER_NONE = 0,      /**< No object in view */
+  CORNER_NE = 1,        /**< Object in NE quadrant */
+  CORNER_NW = 2,        /**< Object in NW quadrant */
+  CORNER_SW = 3,        /**< Object in SW quadrant */
+  CORNER_SE = 4,        /**< Object in SE quadrant */
+  CORNER_MIDDLE = 5,    /**< Object in between quadrants */
+  QUADRANT_NONE = 0,    /**< No object in view */
+  QUADRANT_I = 1,       /**< Object in cartesian quadrant I (NE) */
+  QUADRANT_II = 2,      /**< Object in cartesian quadrant II (NW) */
+  QUADRANT_III = 3,     /**< Object in cartesian quadrant III (SW) */
+  QUADRANT_IV = 4,      /**< Object in cartesian quadrant IV (SE) */
+} Corner;
 
 
 /** @name Device Constants */
@@ -302,6 +321,14 @@ typedef enum {
 #define CUR_HAS_OBJECT                    0x04      // Bit 2 - 0000 0100
 #define CUR_NO_OBJECT                     0x80      // Bit 7 - 1000 0000
 
+// Values for Corners mode
+#define GESTURE_RANGE_MAX                 3712      // Gesture range max value (experimental)
+#define GESTURE_RANGE_MIN                    0      // Gesture range min value
+#define GESTURE_RANGE_MID     ((GESTURE_RANGE_MAX - GESTURE_RANGE_MIN) / 2)
+#define CORNERS_BUFFER_WIDTH_PCT          0.20      // 20% of range is "buffer"/"middle"
+#define CORNERS_BUFFER_WIDTH  (int)((GESTURE_RANGE_MAX - GESTURE_RANGE_MIN) * CORNERS_BUFFER_WIDTH_PCT)
+#define CORNERS_BUFFER_LOWER  (int)(GESTURE_RANGE_MID - (CORNERS_BUFFER_WIDTH / 2))
+#define CORNERS_BUFFER_UPPER  (int)(GESTURE_RANGE_MID + (CORNERS_BUFFER_WIDTH / 2))
 
 
 /** Generated size of the register init array */
@@ -518,7 +545,12 @@ class RevEng_PAJ7620
     int getObjectVelocityY();       // Velocity of object on Y direction
     int getObjectVelocityX_raw();   // Velocity of object on X direction - RAW data
     int getObjectVelocityY_raw();   // Velocity of object on Y direction - RAW data
-   /**@}*/
+    /**@}*/
+
+    /** @name Corners interface */
+    /**@{*/
+    Corner getCorner();             // Returns which corner the object is in
+    /**@}*/
 
     /** @name Cursor mode interface */
     /**@{*/

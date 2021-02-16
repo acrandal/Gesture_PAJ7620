@@ -76,6 +76,8 @@ Sketches provided:
 - paj7620_interrupt     // Sets up an interrupt routine to wait for any gestures
 - paj7620_wave_count    // Polls for the number of waves the sensor sees
 - paj7620_cursor_demo   // Polls the sensor for a 'cursor', which is an object in front of the sensor. It then pulls the cursor location using (x,y) coordinates
+- paj7620_object_size_brightness // Polls for an object's size (in pixels) and "brightness" (0..255)
+- paj7620_corners       // Polls for which quadrant the object is in - NE/NW/SE/SW (or none/middle)
 
 --- 
 
@@ -214,17 +216,39 @@ Negative and positive refer to the direction of travel.
 
 isObjectInView returns true if there's an object in view.
 
+### Object in Corner Interface ###
+
+The Corner interface returns which quadrant an object is currently in.
+This is called in Gesture Mode, but it works in cursor mode which has the quadrants are flipped.
+
+NW | NE  
+--MID--  
+SW | SE  
+
+- Corner result = sensor.getCorner();
+
+getCorner() returns a Corner enum. This enum has six values (and synonyms):
+- CORNER_NONE : No object in view
+- CORNER_NE : Object in upper right quadrant (Quadrant I)
+- CORNER_NW : Object in upper left quadrant (Quadrant II)
+- CORNER_SW : Object in lower left quadrant (Quadrant III)
+- CORNER_SE : Object in lower right quadrant (Quadrant IV)
+- CORNER_MIDDLE : Object in buffer region between the corners (to reduce noise)
+
+Note: Width of middle is set by CORNERS_BUFFER_WIDTH_PCT from .h file
+
 ---
 
 ## Library History ##
 
 **Version 1.5.0**
 
-- Implemented "game mode" and "normal" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).
+- Implemented "game speed" and "normal speed" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).
 - Added getObjectSize() and getObjectBrightness() interfaces (Issues #58 & #59).
 - Added getNoMotionCount() and getNoObjectCount interfaces (Issues #62).
 - Added getObjectCenterX() and getObjectCenterY() interfaces in gesture mode.
-- Added getObjectVelocityX(), getObjectVelocityY() and isObjectInView() interfaces in gesture mode. (Issues #64)
+- Added getObjectVelocityX(), getObjectVelocityY() and isObjectInView() interfaces in gesture mode (Issue #64).
+- Added getCorner() interface to return where an object is from a cartesian quadrant perspective (Issue #52).
 
 **Version 1.4.1**
 

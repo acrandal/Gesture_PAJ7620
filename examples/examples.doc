@@ -92,3 +92,22 @@ As you wave your hand in front of the sensor, it counts the quantity of passes y
 
 @details This demo demonstrates the ability to measure an object’s size and IR reflected brightness to the sensor. These APIs run in Gesture Mode. Size is in the range 0..900, which is the number of pixels reflecting IR back to the sensor within the 30x30 image array. “Brightness” is a scaled value of 0..255, but doesn’t seem to have any units documented.
 */
+
+/**
+@example paj7620_corners.ino
+@brief Polls for which quadrant the object is in - NE/NW/SE/SW (or none/middle)
+@author Aaron S. Crandall <crandall@gonzaga.edu>
+@version 1.0.0
+@copyright Copyright (c) 2021 Aaron S. Crandall
+@copyright Same as package under MIT License (MIT)
+@since February 2021
+
+@details This demo demonstrates the ability to return when an object in view is in various quadrants.
+
+    NW | NE
+       M   
+    --MID--
+       D
+    NW | SE
+*/
+
