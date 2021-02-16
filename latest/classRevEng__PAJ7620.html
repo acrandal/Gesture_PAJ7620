@@ -157,6 +157,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1999bea6044b608a29008d1f6818ec69"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a1999bea6044b608a29008d1f6818ec69">getObjectVelocityY_raw</a> ()</td></tr>
 <tr class="memdesc:a1999bea6044b608a29008d1f6818ec69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object's current Y velocity's raw value.  <a href="classRevEng__PAJ7620.html#a1999bea6044b608a29008d1f6818ec69">More...</a><br /></td></tr>
 <tr class="separator:a1999bea6044b608a29008d1f6818ec69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Corners interface</div></td></tr>
+<tr class="memitem:a4171149fa7e9124c7bdddba62c1eaa39"><td class="memItemLeft" align="right" valign="top"><a class="el" href="RevEng__PAJ7620_8h.html#aa292af1848104b3be6cc0c966b5317b6">Corner</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a4171149fa7e9124c7bdddba62c1eaa39">getCorner</a> ()</td></tr>
+<tr class="memdesc:a4171149fa7e9124c7bdddba62c1eaa39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets which quadrant an object is in.  <a href="classRevEng__PAJ7620.html#a4171149fa7e9124c7bdddba62c1eaa39">More...</a><br /></td></tr>
+<tr class="separator:a4171149fa7e9124c7bdddba62c1eaa39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Cursor mode interface</div></td></tr>
 <tr class="memitem:a2e6a10f4016440ba76444af734247b71"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a2e6a10f4016440ba76444af734247b71">isCursorInView</a> ()</td></tr>
 <tr class="memdesc:a2e6a10f4016440ba76444af734247b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether an object is in view as a cursor.  <a href="classRevEng__PAJ7620.html#a2e6a10f4016440ba76444af734247b71">More...</a><br /></td></tr>
@@ -303,6 +307,32 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="a4171149fa7e9124c7bdddba62c1eaa39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4171149fa7e9124c7bdddba62c1eaa39">&#9670;&nbsp;</a></span>getCorner()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="RevEng__PAJ7620_8h.html#aa292af1848104b3be6cc0c966b5317b6">Corner</a> RevEng_PAJ7620::getCorner </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets which quadrant an object is in. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Corner : [NW, NW, SW, SE] quadrants, middle/buffer, NONE for no object in view </dd></dl>
 
 </div>
 </div>

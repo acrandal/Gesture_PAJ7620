@@ -120,6 +120,8 @@ Example Sketches Provided</h1>
 <li>paj7620_interrupt // Sets up an interrupt routine to wait for any gestures</li>
 <li>paj7620_wave_count // Polls for the number of waves the sensor sees</li>
 <li>paj7620_cursor_demo // Polls the sensor for a 'cursor', which is an object in front of the sensor. It then pulls the cursor location using (x,y) coordinates</li>
+<li>paj7620_object_size_brightness // Polls for an object's size (in pixels) and "brightness" (0..255)</li>
+<li>paj7620_corners // Polls for which quadrant the object is in - NE/NW/SE/SW (or none/middle)</li>
 </ul>
 <hr  />
 <h1><a class="anchor" id="autotoc_md7"></a>
@@ -223,16 +225,36 @@ Object Motion States in Gesture Mode</h2>
 <p>getObjectCenterX and getObjectCenterY return an int with a coordinate for any object in view. They both return 0 if there's no object. The results are in 0..3712. NOTE: The X coordinate is reversed in gesture mode by default so 0 is on the right. This can be flipped with the invertXAxis() interface, but will also reverse the gestures (GES_LEFT becomes GES_RIGHT, Clockwise becomes Anti-Clockwise).</p>
 <p>getObjectVelocityX and getObjectVelocityY poll for a velocity of any object crossing the sensor's view. They return 0 if no object is in view or if the object isn't moving. They return an int from -63 to 63. Negative and positive refer to the direction of travel.</p>
 <p>isObjectInView returns true if there's an object in view.</p>
+<h2><a class="anchor" id="autotoc_md16"></a>
+Object in Corner Interface</h2>
+<p>The Corner interface returns which quadrant an object is currently in. This is called in Gesture Mode, but it works in cursor mode which has the quadrants are flipped.</p>
+<p>NW | NE <br  />
+ &ndash;MID&ndash; <br  />
+ SW | SE <br  />
+</p>
+<ul>
+<li>Corner result = sensor.getCorner();</li>
+</ul>
+<p>getCorner() returns a Corner enum. This enum has six values (and synonyms):</p><ul>
+<li>CORNER_NONE : No object in view</li>
+<li>CORNER_NE : Object in upper right quadrant (Quadrant I)</li>
+<li>CORNER_NW : Object in upper left quadrant (Quadrant II)</li>
+<li>CORNER_SW : Object in lower left quadrant (Quadrant III)</li>
+<li>CORNER_SE : Object in lower right quadrant (Quadrant IV)</li>
+<li>CORNER_MIDDLE : Object in buffer region between the corners (to reduce noise)</li>
+</ul>
+<p>Note: Width of middle is set by CORNERS_BUFFER_WIDTH_PCT from .h file</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Library History</h1>
 <p><b>Version 1.5.0</b></p>
 <ul>
-<li>Implemented "game mode" and "normal" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).</li>
+<li>Implemented "game speed" and "normal speed" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).</li>
 <li>Added getObjectSize() and getObjectBrightness() interfaces (Issues #58 &amp; #59).</li>
 <li>Added getNoMotionCount() and getNoObjectCount interfaces (Issues #62).</li>
 <li>Added getObjectCenterX() and getObjectCenterY() interfaces in gesture mode.</li>
-<li>Added getObjectVelocityX(), getObjectVelocityY() and isObjectInView() interfaces in gesture mode. (Issues #64)</li>
+<li>Added getObjectVelocityX(), getObjectVelocityY() and isObjectInView() interfaces in gesture mode (Issue #64).</li>
+<li>Added getCorner() interface to return where an object is from a cartesian quadrant perspective (Issue #52).</li>
 </ul>
 <p><b>Version 1.4.1</b></p>
 <ul>
