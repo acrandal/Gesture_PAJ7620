@@ -110,8 +110,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac6a3ad7b9ca2023bdc024f8cfa7d5fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Gesture mode interface</div></td></tr>
 <tr class="memitem:a36c20271df3efbb3c31b0c997b2e6ba8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12">Gesture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a36c20271df3efbb3c31b0c997b2e6ba8">readGesture</a> ()</td></tr>
+<tr class="memdesc:a36c20271df3efbb3c31b0c997b2e6ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the latest gesture from the device.  <a href="classRevEng__PAJ7620.html#a36c20271df3efbb3c31b0c997b2e6ba8">More...</a><br /></td></tr>
 <tr class="separator:a36c20271df3efbb3c31b0c997b2e6ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad906c7ed5549a2d29f5a698222a51b24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#ad906c7ed5549a2d29f5a698222a51b24">clearGestureInterrupts</a> ()</td></tr>
+<tr class="memdesc:ad906c7ed5549a2d29f5a698222a51b24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear current gesture interrupt vectors without returning gesture value.  <a href="classRevEng__PAJ7620.html#ad906c7ed5549a2d29f5a698222a51b24">More...</a><br /></td></tr>
 <tr class="separator:ad906c7ed5549a2d29f5a698222a51b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d9e9048da4c251b28e5ac9b66b1a801"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a2d9e9048da4c251b28e5ac9b66b1a801">setGestureEntryTime</a> (unsigned long newGestureEntryTime)</td></tr>
 <tr class="memdesc:a2d9e9048da4c251b28e5ac9b66b1a801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets time sensor waits between getGesture call to reading gesture from sensor.  <a href="classRevEng__PAJ7620.html#a2d9e9048da4c251b28e5ac9b66b1a801">More...</a><br /></td></tr>
@@ -120,31 +122,44 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:adde6db9e577c9fe5a8fbd0faa55aa3e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets time sensor waits during getGesture() after gesture value read.  <a href="classRevEng__PAJ7620.html#adde6db9e577c9fe5a8fbd0faa55aa3e6">More...</a><br /></td></tr>
 <tr class="separator:adde6db9e577c9fe5a8fbd0faa55aa3e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c2529ffeed25771fefc2d55a4a2c8c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a5c2529ffeed25771fefc2d55a4a2c8c0">getWaveCount</a> ()</td></tr>
+<tr class="memdesc:a5c2529ffeed25771fefc2d55a4a2c8c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current count of waves by user.  <a href="classRevEng__PAJ7620.html#a5c2529ffeed25771fefc2d55a4a2c8c0">More...</a><br /></td></tr>
 <tr class="separator:a5c2529ffeed25771fefc2d55a4a2c8c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42f9166801b8119682d9ac6eb07d791e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a42f9166801b8119682d9ac6eb07d791e">getNoObjectCount</a> ()</td></tr>
+<tr class="memdesc:a42f9166801b8119682d9ac6eb07d791e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get how long since the object left the view in gesture mode.  <a href="classRevEng__PAJ7620.html#a42f9166801b8119682d9ac6eb07d791e">More...</a><br /></td></tr>
 <tr class="separator:a42f9166801b8119682d9ac6eb07d791e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7f5d23d2377f272f74f9ec5c76f0fea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#aa7f5d23d2377f272f74f9ec5c76f0fea">getNoMotionCount</a> ()</td></tr>
+<tr class="memdesc:aa7f5d23d2377f272f74f9ec5c76f0fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get how long no motion has been seen in gesture mode.  <a href="classRevEng__PAJ7620.html#aa7f5d23d2377f272f74f9ec5c76f0fea">More...</a><br /></td></tr>
 <tr class="separator:aa7f5d23d2377f272f74f9ec5c76f0fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea2006ff53c2e00022f78be117eaf767"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#aea2006ff53c2e00022f78be117eaf767">getObjectBrightness</a> ()</td></tr>
+<tr class="memdesc:aea2006ff53c2e00022f78be117eaf767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read object's "brightness".  <a href="classRevEng__PAJ7620.html#aea2006ff53c2e00022f78be117eaf767">More...</a><br /></td></tr>
 <tr class="separator:aea2006ff53c2e00022f78be117eaf767"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3c1206983e49a8810caad686d8bdca0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#aa3c1206983e49a8810caad686d8bdca0">getObjectSize</a> ()</td></tr>
+<tr class="memdesc:aa3c1206983e49a8810caad686d8bdca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read object's size (in pixels)  <a href="classRevEng__PAJ7620.html#aa3c1206983e49a8810caad686d8bdca0">More...</a><br /></td></tr>
 <tr class="separator:aa3c1206983e49a8810caad686d8bdca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a455fb999828f85560874d19bb88f88ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a455fb999828f85560874d19bb88f88ea">getObjectCenterX</a> ()</td></tr>
+<tr class="memdesc:a455fb999828f85560874d19bb88f88ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets Gesture object's current X location.  <a href="classRevEng__PAJ7620.html#a455fb999828f85560874d19bb88f88ea">More...</a><br /></td></tr>
 <tr class="separator:a455fb999828f85560874d19bb88f88ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f4073f4808ff4ee3c2c575422e15a77"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a1f4073f4808ff4ee3c2c575422e15a77">getObjectCenterY</a> ()</td></tr>
+<tr class="memdesc:a1f4073f4808ff4ee3c2c575422e15a77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets Gesture object's current Y location.  <a href="classRevEng__PAJ7620.html#a1f4073f4808ff4ee3c2c575422e15a77">More...</a><br /></td></tr>
 <tr class="separator:a1f4073f4808ff4ee3c2c575422e15a77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae42d85d5ad647855f7ddf60ee3a9a4c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#ae42d85d5ad647855f7ddf60ee3a9a4c1">isObjectInView</a> ()</td></tr>
+<tr class="memdesc:ae42d85d5ad647855f7ddf60ee3a9a4c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether an object is in view or not.  <a href="classRevEng__PAJ7620.html#ae42d85d5ad647855f7ddf60ee3a9a4c1">More...</a><br /></td></tr>
 <tr class="separator:ae42d85d5ad647855f7ddf60ee3a9a4c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa99dd6f2455e8b890c017617c6498edb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#aa99dd6f2455e8b890c017617c6498edb">getObjectVelocityX</a> ()</td></tr>
+<tr class="memdesc:aa99dd6f2455e8b890c017617c6498edb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object's current X velocity's value.  <a href="classRevEng__PAJ7620.html#aa99dd6f2455e8b890c017617c6498edb">More...</a><br /></td></tr>
 <tr class="separator:aa99dd6f2455e8b890c017617c6498edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a023806a5bb8d40af6f63c4858d7d2dbe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a023806a5bb8d40af6f63c4858d7d2dbe">getObjectVelocityY</a> ()</td></tr>
+<tr class="memdesc:a023806a5bb8d40af6f63c4858d7d2dbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object's current Y velocity's value.  <a href="classRevEng__PAJ7620.html#a023806a5bb8d40af6f63c4858d7d2dbe">More...</a><br /></td></tr>
 <tr class="separator:a023806a5bb8d40af6f63c4858d7d2dbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62b2cf92372ea719d314a4fba97c1a47"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a62b2cf92372ea719d314a4fba97c1a47">getObjectVelocityX_raw</a> ()</td></tr>
+<tr class="memdesc:a62b2cf92372ea719d314a4fba97c1a47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object's current X velocity's raw value.  <a href="classRevEng__PAJ7620.html#a62b2cf92372ea719d314a4fba97c1a47">More...</a><br /></td></tr>
 <tr class="separator:a62b2cf92372ea719d314a4fba97c1a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1999bea6044b608a29008d1f6818ec69"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a1999bea6044b608a29008d1f6818ec69">getObjectVelocityY_raw</a> ()</td></tr>
+<tr class="memdesc:a1999bea6044b608a29008d1f6818ec69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object's current Y velocity's raw value.  <a href="classRevEng__PAJ7620.html#a1999bea6044b608a29008d1f6818ec69">More...</a><br /></td></tr>
 <tr class="separator:a1999bea6044b608a29008d1f6818ec69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Corners interface</div></td></tr>
 <tr class="memitem:a4171149fa7e9124c7bdddba62c1eaa39"><td class="memItemLeft" align="right" valign="top"><a class="el" href="RevEng__PAJ7620_8h.html#aa292af1848104b3be6cc0c966b5317b6">Corner</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a4171149fa7e9124c7bdddba62c1eaa39">getCorner</a> ()</td></tr>
+<tr class="memdesc:a4171149fa7e9124c7bdddba62c1eaa39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets which quadrant an object is in.  <a href="classRevEng__PAJ7620.html#a4171149fa7e9124c7bdddba62c1eaa39">More...</a><br /></td></tr>
 <tr class="separator:a4171149fa7e9124c7bdddba62c1eaa39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Cursor mode interface</div></td></tr>
 <tr class="memitem:a2e6a10f4016440ba76444af734247b71"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRevEng__PAJ7620.html#a2e6a10f4016440ba76444af734247b71">isCursorInView</a> ()</td></tr>
@@ -230,6 +245,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Clear current gesture interrupt vectors without returning gesture value. </p>
+<dl class="section note"><dt>Note</dt><dd>The gesture interrupt vectors are reset in hardware after any reads</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
 </div>
 </div>
 <a id="a197fdd6e4380fdc5ad52063845c89077"></a>
@@ -299,6 +324,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Gets which quadrant an object is in. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Corner : [NW, NW, SW, SE] quadrants, middle/buffer, NONE for no object in view </dd></dl>
 
 </div>
 </div>
@@ -371,6 +405,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Get how long no motion has been seen in gesture mode. </p>
+<dl class="section user"><dt></dt><dd>This counts how long it has been since motions has occurred in front of the sensor. This counts even if there's an object in view when it isn't moving. Eratta: This <em>should</em> return 0..255, but seems to stop at 12. Each "count" is probably 7.2ms, but it's been tough to figure out. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int : ticks value 0..12 </dd></dl>
+
 </div>
 </div>
 <a id="a42f9166801b8119682d9ac6eb07d791e"></a>
@@ -387,6 +425,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get how long since the object left the view in gesture mode. </p>
+<dl class="section user"><dt></dt><dd>When an object has left the sensor's view, this register starts counting up. It's counting in ticks, roughly one per 7.2ms. It maxes out at 255, which happens at about 1830ms </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int : ticks value 0..255 </dd></dl>
 
 </div>
 </div>
@@ -405,6 +447,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Read object's "brightness". </p>
+<dl class="section user"><dt></dt><dd>Objects in view have their IR reflection measured. This interface returns a measure of this brightness from 0..255 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int brightness: brightness value 0..255 </dd></dl>
+
 </div>
 </div>
 <a id="a455fb999828f85560874d19bb88f88ea"></a>
@@ -421,6 +467,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Gets Gesture object's current X location. </p>
+<dl class="section note"><dt>Note</dt><dd>Only works in gesture mode - default coordinates are 0 on right </dd>
+<dd>
+Range seems to be 0..3712 in default gesture mode </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int : X coordinate of cursor </dd></dl>
 
 </div>
 </div>
@@ -439,6 +497,18 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets Gesture object's current Y location. </p>
+<dl class="section note"><dt>Note</dt><dd>Only works in gesture mode - default coordinates are 0 on top </dd>
+<dd>
+Range seems to be 0..3712 in default gesture mode </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int : Y coordinate of cursor </dd></dl>
+
 </div>
 </div>
 <a id="aa3c1206983e49a8810caad686d8bdca0"></a>
@@ -455,6 +525,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Read object's size (in pixels) </p>
+<dl class="section user"><dt></dt><dd>The sensor has a 30x30 IR LED array. This interface returns a count of how many pixels are part of the object in view being tracked. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int size: value 0..900 </dd></dl>
 
 </div>
 </div>
@@ -473,6 +547,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets object's current X velocity's value. </p>
+<dl class="section user"><dt></dt><dd>Value filtered to zero if object not in view </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Range seems to be -63..63 </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int : X velocity -63..63 </dd></dl>
+
 </div>
 </div>
 <a id="a62b2cf92372ea719d314a4fba97c1a47"></a>
@@ -489,6 +574,16 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Gets object's current X velocity's raw value. </p>
+<dl class="section note"><dt>Note</dt><dd>Range seems to be -63..63 </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int : X velocity -63..63 </dd></dl>
 
 </div>
 </div>
@@ -507,6 +602,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets object's current Y velocity's value. </p>
+<dl class="section user"><dt></dt><dd>Value filtered to zero if object not in view </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Range seems to be -63..63 </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int : Y velocity -63..63 </dd></dl>
+
 </div>
 </div>
 <a id="a1999bea6044b608a29008d1f6818ec69"></a>
@@ -524,6 +630,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets object's current Y velocity's raw value. </p>
+<dl class="section note"><dt>Note</dt><dd>Range seems to be -63..63 </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int : Y velocity -63..63 </dd></dl>
+
 </div>
 </div>
 <a id="a5c2529ffeed25771fefc2d55a4a2c8c0"></a>
@@ -540,6 +656,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get current count of waves by user. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int : current count of "waves" over the sensor </dd></dl>
 
 </div>
 </div>
@@ -639,6 +764,15 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets whether an object is in view or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool : true if object in view </dd></dl>
+
 </div>
 </div>
 <a id="a36c20271df3efbb3c31b0c997b2e6ba8"></a>
@@ -655,6 +789,17 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reads the latest gesture from the device. </p>
+<dl class="section user"><dt></dt><dd>This is the central method for reading and calculating the main 9 gestures the PAJ7620 can recognize. It returns a Gesture enum with the read gesture, which can by GES_NONE if no gesture was currently found. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Clears interrupt vector of gestures when called </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">none</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12">Gesture</a> found or <a class="el" href="RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12a1dd09eef80804f12e8a42bf01ce66ef7">Gesture::GES_NONE </a> if no gesture found </dd></dl>
 
 </div>
 </div>
