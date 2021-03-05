@@ -2,7 +2,7 @@
   \file RevEng_PAJ7620.cpp
   \author Aaron S. Crandall
 
-  \version 1.4.1
+  \version 1.5.0
 
   \copyright
   \parblock
@@ -66,6 +66,7 @@ uint8_t RevEng_PAJ7620::begin()
   return begin(&Wire);
 }
 
+
 /**
  * PAJ7620 device initialization and I2C connect on specified Wire bus
  *
@@ -91,6 +92,7 @@ uint8_t RevEng_PAJ7620::begin(TwoWire *chosenWireHandle)
   delayMicroseconds(700);	            // Wait 700us for PAJ7620U2 to stabilize
                                       // Reason: see v0.8 of 7620 documentation
   wireHandle->begin();                // Start the I2C bus via wire library
+
 
   /* There's two register banks (0 & 1) to be selected between.
    * BANK0 is where most data collection operations happen, so it's default.
@@ -130,6 +132,7 @@ uint8_t RevEng_PAJ7620::writeRegister(uint8_t i2cAddress, uint8_t dataByte)
   resultCode = wireHandle->endTransmission();            // end transmission
   return resultCode;
 }
+
 
 /**
  * Read memory register over I2C
@@ -486,50 +489,35 @@ void RevEng_PAJ7620::setGestureExitTime(unsigned long newGestureExitTime)
   gestureExitTime = newGestureExitTime;
 }
 
-/*
-void RevEng_PAJ7620::setGameMode()
+
+/**
+ * Set sensor to "game mode" sampling speed of 240fps
+ * \note Value of 0x30 for setting comes from PixArt contact
+ *
+ * \param none
+ * \return none
+ */
+void RevEng_PAJ7620::setGameSpeed()
 {
-*/
-  /*
-    NOTE: No version of the PixArt documentation says how to enable game mode
-      If you know, please let me know so we can get it added here
-      This code below comes from unknown sources, but was patched into various
-      forks of the Seeed version on GitHub.
-        -- Aaron S. Crandall <crandall@gonzaga.edu>
-  */
-   /*
-   * Setting normal mode or gaming mode at BANK1 register 0x65/0x66 R_IDLE_TIME[15:0]
-   * T = 256/System CLK = 32us, 
-   * Ex:
-   * Far Mode: 1 report time = (77+R_IDLE_TIME)T
-   * Report rate 120 fps:
-   * R_IDLE_TIME=1/(120*T)-77=183
-   * 
-   * Report rate 240 fps:
-   * R_IDLE_TIME=1/(240*T)-77=53
-   * 
-   * Near Mode: 1 report time = (112+R_IDLE_TIME)T
-   * 
-   * Report rate 120 fps:
-   * R_IDLE_TIME=1/(120*T)-120=148
-   * 
-   * Report rate 240 fps:
-   * R_IDLE_TIME=1/(240*T)-112=18
-   * 
-   */  
-  // Serial.println("Set up gaming mode.");
-  // paj7620SelectBank(BANK1);  //gesture flage reg in Bank1
-  // paj7620WriteReg(0x65, 0xB7); // far mode 120 fps
-  //paj7620WriteReg(0x65, 0x12);  // near mode 240 fps
-
-  // paj7620SelectBank(BANK0);  //gesture flage reg in Bank0
-
-/*
   selectRegisterBank(BANK1);
-  writeRegister(0x65, 0x12);
+  writeRegister(PAJ7620_ADDR_R_IDLE_TIME_0, PAJ7620_GAME_SPEED);
   selectRegisterBank(BANK0);
 }
-*/
+
+
+/**
+ * Set sensor to "normal" sampling speed of 120fps
+ * \note Value of 0xAC for setting comes from PixArt contact
+ *
+ * \param none
+ * \return none
+ */
+void RevEng_PAJ7620::setNormalSpeed()
+{
+  selectRegisterBank(BANK1);
+  writeRegister(PAJ7620_ADDR_R_IDLE_TIME_0, PAJ7620_NORMAL_SPEED);
+  selectRegisterBank(BANK0);
+}
 
 
 /**
@@ -658,4 +646,263 @@ Gesture RevEng_PAJ7620::readGesture()
     }
   }
   return result;
+}
+
+
+/**
+ * Read object's "brightness"
+ * 
+ * \par
+ * Objects in view have their IR reflection measured. This interface returns a
+ *  measure of this brightness from 0..255
+ * \return int brightness: brightness value 0..255
+ */
+int RevEng_PAJ7620::getObjectBrightness()
+{
+  uint8_t brightness = 0x00;
+  readRegister(PAJ7620_ADDR_OBJECT_BRIGHTNESS, 1, &brightness);
+  return brightness;
+}
+
+
+/**
+ * Read object's size (in pixels)
+ * 
+ * \par
+ * The sensor has a 30x30 IR LED array. This interface returns a count of
+ *  how many pixels are part of the object in view being tracked.
+ * \return int size: value 0..900
+ */
+int RevEng_PAJ7620::getObjectSize()
+{
+  uint8_t data0, data1 = 0x00;
+  int result = 0;
+  readRegister(PAJ7620_ADDR_OBJECT_SIZE_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_SIZE_MSB, 1, &data1);
+  result = data1;
+  result = result << 8;
+  result |= data0;
+  return result;
+}
+
+
+/**
+ * Get how long since the object left the view in gesture mode
+ * 
+ * \par
+ * When an object has left the sensor's view, this register starts counting up.
+ *  It's counting in ticks, roughly one per 7.2ms. It maxes out at 255, which
+ *  happens at about 1830ms
+ * \return int : ticks value 0..255
+ */
+int RevEng_PAJ7620::getNoObjectCount()
+{
+  uint8_t data0 = 0x00;
+  readRegister(PAJ7620_ADDR_NO_OBJECT_COUNT, 1, &data0);
+  return (int)data0;
+}
+
+
+/**
+ * Get how long no motion has been seen in gesture mode
+ * 
+ * \par
+ * This counts how long it has been since motions has occurred in front of the sensor.
+ * This counts even if there's an object in view when it isn't moving.
+ * Eratta: This *should* return 0..255, but seems to stop at 12.
+ * Each "count" is probably 7.2ms, but it's been tough to figure out.
+ * \return int : ticks value 0..12
+ */
+int RevEng_PAJ7620::getNoMotionCount()
+{
+  uint8_t data0 = 0x00;
+  readRegister(PAJ7620_ADDR_NO_MOTION_COUNT, 1, &data0);
+  return (int)data0;
+}
+
+
+/**
+ * Gets Gesture object's current X location
+ * 
+ * \note Only works in gesture mode - default coordinates are 0 on right
+ * \note Range seems to be 0..3712 in default gesture mode
+ * \param none
+ * \return int : X coordinate of cursor
+ */
+int RevEng_PAJ7620::getObjectCenterX()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_CENTER_X_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_CENTER_X_MSB, 1, &data1);
+  data1 &= 0x1F;      // Mask off high bits (unused)
+  result |= data1;
+  result = result << 8;
+  result |= data0;
+
+  return result;
+}
+
+
+/**
+ * Gets Gesture object's current Y location
+ * 
+ * \note Only works in gesture mode - default coordinates are 0 on top
+ * \note Range seems to be 0..3712 in default gesture mode
+ * \param none
+ * \return int : Y coordinate of cursor
+ */
+int RevEng_PAJ7620::getObjectCenterY()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_CENTER_Y_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_CENTER_Y_MSB, 1, &data1);
+  data1 &= 0x1F;      // Mask off high bits (unused)
+  result |= data1;
+  result = result << 8;
+  result |= data0;
+
+  return result;
+}
+
+
+/**
+ * Gets object's current X velocity's raw value
+ * 
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : X velocity -63..63
+ */
+int RevEng_PAJ7620::getObjectVelocityX_raw()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_X_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_X_MSB, 1, &data1);
+
+  data0 &= 0x3F;        // Yup, see wiki for reason
+  result = data0;
+  if(data1) { result *= -1; }
+
+  return result;
+}
+
+
+/**
+ * Gets object's current Y velocity's raw value
+ * 
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : Y velocity -63..63
+ */
+int RevEng_PAJ7620::getObjectVelocityY_raw()
+{
+  int result = 0;
+  uint8_t data0 = 0x00;
+  uint8_t data1 = 0x00;
+
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_Y_LSB, 1, &data0);
+  readRegister(PAJ7620_ADDR_OBJECT_VEL_Y_MSB, 1, &data1);
+  data0 &= 0x3F;        // Yup, see wiki for reason
+  result = data0;
+  if(data1) { result *= -1; }
+
+  return result;
+}
+
+
+/**
+ * Gets object's current X velocity's value
+ * 
+ * \par
+ * Value filtered to zero if object not in view
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : X velocity -63..63
+ */
+int RevEng_PAJ7620::getObjectVelocityX()
+{
+  if(!isObjectInView()) {
+    return 0;
+  } else {
+    return getObjectVelocityX_raw();
+  }
+}
+
+
+/**
+ * Gets object's current Y velocity's value
+ * 
+ * \par
+ * Value filtered to zero if object not in view
+ * \note Range seems to be -63..63
+ * \param none
+ * \return int : Y velocity -63..63
+ */
+int RevEng_PAJ7620::getObjectVelocityY()
+{
+  if(!isObjectInView()) {
+    return 0;
+  } else {
+    return getObjectVelocityY_raw();
+  }
+}
+
+
+/**
+ * Gets whether an object is in view or not
+ * 
+ * \param none
+ * \return bool : true if object in view
+ */
+bool RevEng_PAJ7620::isObjectInView()
+{
+  if(getNoObjectCount())
+  {
+    return false;
+  }
+  return true;
+}
+
+
+/**
+ * Gets which quadrant an object is in
+ * 
+ * \param none
+ * \return Corner : [NW, NW, SW, SE] quadrants, middle/buffer, NONE for no object in view
+ */
+Corner RevEng_PAJ7620::getCorner()
+{
+  Corner ret = CORNER_NONE;
+  int object_x, object_y = 0;
+
+  if( !isObjectInView() ) {   // Bail if no object in view
+    return CORNER_NONE;
+  }
+
+  object_x = getObjectCenterX();
+  object_y = getObjectCenterY();
+
+  if( object_x < CORNERS_BUFFER_LOWER && object_y < CORNERS_BUFFER_LOWER ) {
+    return CORNER_NE;
+  }
+  else if( object_x > CORNERS_BUFFER_UPPER && object_y < CORNERS_BUFFER_LOWER ) {
+    return CORNER_NW;
+  }
+  else if( object_x > CORNERS_BUFFER_UPPER && object_y > CORNERS_BUFFER_UPPER ) {
+    return CORNER_SW;
+  }
+  else if( object_x < CORNERS_BUFFER_LOWER && object_y > CORNERS_BUFFER_UPPER ) {
+    return CORNER_SE;
+  }
+  else {
+    return CORNER_MIDDLE;     // Is in view, but not fully in a corner yet
+  }
 }

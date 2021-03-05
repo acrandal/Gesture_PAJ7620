@@ -76,6 +76,8 @@ Sketches provided:
 - paj7620_interrupt     // Sets up an interrupt routine to wait for any gestures
 - paj7620_wave_count    // Polls for the number of waves the sensor sees
 - paj7620_cursor_demo   // Polls the sensor for a 'cursor', which is an object in front of the sensor. It then pulls the cursor location using (x,y) coordinates
+- paj7620_object_size_brightness // Polls for an object's size (in pixels) and "brightness" (0..255)
+- paj7620_corners       // Polls for which quadrant the object is in - NE/NW/SE/SW (or none/middle)
 
 --- 
 
@@ -163,11 +165,94 @@ The instantiation of the class is the same, and once it's initialized you can ch
 The program can return to gesture mode with the setGestureMode call:
 - sensor.setGestureMode();
 
+### Game Mode Summary ###
+
+The PixArt datasheets refer prominently to "game mode" with the sensor.
+The documentation talks about game mode providing 240fps instead of normal mode's 120fps.
+After working with PixArt to get the correct values in place, these modes are set with the driver API's:
+- sensor.setNormalSpeed();
+- sensor.setGameSpeed();
+
+The biggest side effect of using game speed is that if you're polling the sensor for events, especially cursor location updates, you can receive data results at around twice the rate with the game speed set.
+
+NOTE: if you change modes (gesture to cursor or cursor to gesture) the speed shall return to normal speed until you call setGameSpeed() again.
+
+### Object Size and Brightness ###
+
+In Gesture mode, there are metrics about the visible object available.
+Notably, you can pull the "brightness" (IR reflected light) and size (pixels) of any object in view.
+
+- sensor.getObjectBrightness();
+- sensor.getObjectSize();
+
+Brightness is measured on a scale of 0..255 with no units.
+Size is 0..900 where the value is how many pixels of the 30x30 IR camera are picking up an object.
+
+### Object Motion States in Gesture Mode ###
+
+In Gesture mode, you can get some stats on object visibility and motion.
+
+- sensor.getNoObjectCount();
+- sensor.getNoMotionCount();
+- sensor.getObjectCenterX();
+- sensor.getObjectCenterY();
+- getObjectVelocityX();
+- getObjectVelocityY();
+- isObjectInView();
+
+NoObjectCount reports the number of ticks since an object left the view.
+It reports a value between 0..255. Each increment represents about 7.2ms in normal mode and 4.1ms in game mode.
+
+Similarly, NoMotionCount is ticks since there was motion (even if there is still an object in view, but it's holding still). For some reason it only counts 0..12.
+
+getObjectCenterX and getObjectCenterY return an int with a coordinate for any object in view. They both return 0 if there's no object. The results are in 0..3712.
+NOTE: The X coordinate is reversed in gesture mode by default so 0 is on the right.
+This can be flipped with the invertXAxis() interface, but will also reverse the gestures (GES_LEFT becomes GES_RIGHT, Clockwise becomes Anti-Clockwise).
+
+getObjectVelocityX and getObjectVelocityY poll for a velocity of any object crossing the sensor's view.
+They return 0 if no object is in view or if the object isn't moving.
+They return an int from -63 to 63.
+Negative and positive refer to the direction of travel.
+
+isObjectInView returns true if there's an object in view.
+
+### Object in Corner Interface ###
+
+The Corner interface returns which quadrant an object is currently in.
+This is called in Gesture Mode, but it works in cursor mode which has the quadrants are flipped.
+
+NW | NE  
+--MID--  
+SW | SE  
+
+- Corner result = sensor.getCorner();
+
+getCorner() returns a Corner enum. This enum has six values (and synonyms):
+- CORNER_NONE : No object in view
+- CORNER_NE : Object in upper right quadrant (Quadrant I)
+- CORNER_NW : Object in upper left quadrant (Quadrant II)
+- CORNER_SW : Object in lower left quadrant (Quadrant III)
+- CORNER_SE : Object in lower right quadrant (Quadrant IV)
+- CORNER_MIDDLE : Object in buffer region between the corners (to reduce noise)
+
+Note: Width of middle is set by CORNERS_BUFFER_WIDTH_PCT from .h file
+
+
 ---
 
 ## Library History ##
 
+**Version 1.5.0**
+
+- Implemented "game speed" and "normal speed" APIs to use values received from PixArt email response by Xavier Liu (Thank you!).
+- Added getObjectSize() and getObjectBrightness() interfaces (Issues #58 & #59).
+- Added getNoMotionCount() and getNoObjectCount interfaces (Issues #62).
+- Added getObjectCenterX() and getObjectCenterY() interfaces in gesture mode.
+- Added getObjectVelocityX(), getObjectVelocityY() and isObjectInView() interfaces in gesture mode (Issue #64).
+- Added getCorner() interface to return where an object is from a cartesian quadrant perspective (Issue #52).
+
 **Version 1.4.1**
+
 - Fixed serious I2C initialization bug - needed to set memory bank twice to init reliably (see Issue #56)
 
 **Version 1.4.0**
@@ -182,7 +267,6 @@ The program can return to gesture mode with the setGestureMode call:
 - Slimmed down the initialization array from 440 bytes to 100 bytes
 - Created a proper gesture mode register array to allow returning to gesture mode from cursor mode
 - Adjusted README to better align with doxygen formatting/output
-
 
 **Version 1.3.0**
 
@@ -225,4 +309,4 @@ The program can return to gesture mode with the setGestureMode call:
 MIT - see LICENSE file
 
 **Version**  
-1.4.1
+1.5.0

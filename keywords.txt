@@ -1,12 +1,13 @@
 #######################################
 # Syntax Coloring Map for 
-# RevEng PAJ7620U2 Gesture Sensor API
+# RevEng PAJ7620 Gesture Sensor API
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 Gesture KEYWORD1
+Corner KEYWORD1
 RevEng_PAJ7620 KEYWORD1
 
 #######################################
@@ -27,6 +28,20 @@ getCursorX KEYWORD2
 getCursorY KEYWORD2
 invertXAxis KEYWORD2
 invertYAxis KEYWORD2
+setGameSpeed KEYWORD2
+setNormalSpeed KEYWORD2
+getObjectBrightness KEYWORD2
+getObjectSize KEYWORD2
+getNoObjectCount KEYWORD2
+getNoMotionCount KEYWORD2
+getObjectCenterX KEYWORD2
+getObjectCenterY KEYWORD2
+isObjectInView KEYWORD2
+getObjectVelocityX KEYWORD2
+getObjectVelocityY KEYWORD2
+getObjectVelocityX_raw KEYWORD2
+getObjectVelocityY_raw KEYWORD2
+getCorner KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

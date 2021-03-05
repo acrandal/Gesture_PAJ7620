@@ -1,5 +1,7 @@
 SOURCE_FILE=paj7620_cursor_mode
-PORT=/dev/ttyUSB1
+
+PORT=/dev/ttyUSB0
+
 DEVICE=arduino:avr:uno
 
 build:
