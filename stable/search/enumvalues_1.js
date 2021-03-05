@@ -1,13 +1,9 @@
 var searchData=
 [
-  ['ges_5fanticlockwise_121',['GES_ANTICLOCKWISE',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12af4d44c6b9537613b49c2acae0ca69018',1,'RevEng_PAJ7620.h']]],
-  ['ges_5fbackward_122',['GES_BACKWARD',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12a1bbc2ac5898228ab227ba2929fdd158b',1,'RevEng_PAJ7620.h']]],
-  ['ges_5fclockwise_123',['GES_CLOCKWISE',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12abbd979b55abc28fffc4289c379531662',1,'RevEng_PAJ7620.h']]],
-  ['ges_5fdown_124',['GES_DOWN',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12af0dd56bc37fa15575d2e1c8e05617833',1,'RevEng_PAJ7620.h']]],
-  ['ges_5fforward_125',['GES_FORWARD',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12a774cf50a28bcbfe8125ed18e2e341451',1,'RevEng_PAJ7620.h']]],
-  ['ges_5fleft_126',['GES_LEFT',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12a6d6f77142c3402dad6a357f906d1e0fc',1,'RevEng_PAJ7620.h']]],
-  ['ges_5fnone_127',['GES_NONE',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12a1dd09eef80804f12e8a42bf01ce66ef7',1,'RevEng_PAJ7620.h']]],
-  ['ges_5fright_128',['GES_RIGHT',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12a5bcc1ccf0b7929679982205cabb6e777',1,'RevEng_PAJ7620.h']]],
-  ['ges_5fup_129',['GES_UP',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12af26ee2ef5d27ff7bc4ca58c0f176ee08',1,'RevEng_PAJ7620.h']]],
-  ['ges_5fwave_130',['GES_WAVE',['../RevEng__PAJ7620_8h.html#a4c115a495b9dd6dfa20244e79f4fdc12a297dc77b329193faeb76c67dad3faad6',1,'RevEng_PAJ7620.h']]]
+  ['corner_5fmiddle_187',['CORNER_MIDDLE',['../RevEng__PAJ7620_8h.html#aa292af1848104b3be6cc0c966b5317b6a93d2fa36da5b7fb37f95d39c13bc03f2',1,'RevEng_PAJ7620.h']]],
+  ['corner_5fne_188',['CORNER_NE',['../RevEng__PAJ7620_8h.html#aa292af1848104b3be6cc0c966b5317b6ac331e40c625890fc6512dbd19f684697',1,'RevEng_PAJ7620.h']]],
+  ['corner_5fnone_189',['CORNER_NONE',['../RevEng__PAJ7620_8h.html#aa292af1848104b3be6cc0c966b5317b6a3783ca1524849138c63fb9119e5de506',1,'RevEng_PAJ7620.h']]],
+  ['corner_5fnw_190',['CORNER_NW',['../RevEng__PAJ7620_8h.html#aa292af1848104b3be6cc0c966b5317b6af897832e22b5d13f3fe3f445e40d828b',1,'RevEng_PAJ7620.h']]],
+  ['corner_5fse_191',['CORNER_SE',['../RevEng__PAJ7620_8h.html#aa292af1848104b3be6cc0c966b5317b6ab4d17b0bac1374ab08e976cc1b25292d',1,'RevEng_PAJ7620.h']]],
+  ['corner_5fsw_192',['CORNER_SW',['../RevEng__PAJ7620_8h.html#aa292af1848104b3be6cc0c966b5317b6a25c317d838d987bf7212e31a4f0bb8c8',1,'RevEng_PAJ7620.h']]]
 ];

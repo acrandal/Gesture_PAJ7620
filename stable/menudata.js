@@ -39,6 +39,7 @@ var menudata={children:[
 {text:"g",url:"globals.html#index_g"},
 {text:"i",url:"globals.html#index_i"},
 {text:"p",url:"globals.html#index_p"},
+{text:"q",url:"globals.html#index_q"},
 {text:"s",url:"globals.html#index_s"}]},
 {text:"Variables",url:"globals_vars.html"},
 {text:"Enumerations",url:"globals_enum.html"},
