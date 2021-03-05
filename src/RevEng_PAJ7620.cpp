@@ -66,6 +66,7 @@ uint8_t RevEng_PAJ7620::begin()
   return begin(&Wire);
 }
 
+
 /**
  * PAJ7620 device initialization and I2C connect on specified Wire bus
  *
@@ -131,6 +132,7 @@ uint8_t RevEng_PAJ7620::writeRegister(uint8_t i2cAddress, uint8_t dataByte)
   resultCode = wireHandle->endTransmission();            // end transmission
   return resultCode;
 }
+
 
 /**
  * Read memory register over I2C
@@ -259,9 +261,6 @@ void RevEng_PAJ7620::writeRegisterArray(const unsigned short array[], int arrayS
   }
   selectRegisterBank(BANK0);        // Guarantee parking in BANK0
 }
-
-
-//***************************************************************************************
 
 
 /**
@@ -519,51 +518,6 @@ void RevEng_PAJ7620::setNormalSpeed()
   writeRegister(PAJ7620_ADDR_R_IDLE_TIME_0, PAJ7620_NORMAL_SPEED);
   selectRegisterBank(BANK0);
 }
-=======
-/*
-void RevEng_PAJ7620::setGameMode()
-{
-*/
-  /*
-    NOTE: No version of the PixArt documentation says how to enable game mode
-      If you know, please let me know so we can get it added here
-      This code below comes from unknown sources, but was patched into various
-      forks of the Seeed version on GitHub.
-        -- Aaron S. Crandall <crandall@gonzaga.edu>
-  */
-   /*
-   * Setting normal mode or gaming mode at BANK1 register 0x65/0x66 R_IDLE_TIME[15:0]
-   * T = 256/System CLK = 32us, 
-   * Ex:
-   * Far Mode: 1 report time = (77+R_IDLE_TIME)T
-   * Report rate 120 fps:
-   * R_IDLE_TIME=1/(120*T)-77=183
-   * 
-   * Report rate 240 fps:
-   * R_IDLE_TIME=1/(240*T)-77=53
-   * 
-   * Near Mode: 1 report time = (112+R_IDLE_TIME)T
-   * 
-   * Report rate 120 fps:
-   * R_IDLE_TIME=1/(120*T)-120=148
-   * 
-   * Report rate 240 fps:
-   * R_IDLE_TIME=1/(240*T)-112=18
-   * 
-   */  
-  // Serial.println("Set up gaming mode.");
-  // paj7620SelectBank(BANK1);  //gesture flage reg in Bank1
-  // paj7620WriteReg(0x65, 0xB7); // far mode 120 fps
-  //paj7620WriteReg(0x65, 0x12);  // near mode 240 fps
-
-  // paj7620SelectBank(BANK0);  //gesture flage reg in Bank0
-
-/*
-  selectRegisterBank(BANK1);
-  writeRegister(0x65, 0x12);
-  selectRegisterBank(BANK0);
-}
-*/
 
 
 /**
@@ -815,6 +769,7 @@ int RevEng_PAJ7620::getObjectCenterY()
 
   return result;
 }
+
 
 /**
  * Gets object's current X velocity's raw value
