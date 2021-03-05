@@ -207,6 +207,7 @@ typedef enum {
 #define PAJ7620_ADDR_CURSOR_INT           (PAJ7620_ADDR_BASE + 0x44)  // R
 /**@}*/
 
+
 // Proximity Registers - Bank 0
 //  Documentation best in v0.8 datasheet
 //  Only available in Proximity Detection (PS) mode
@@ -320,6 +321,7 @@ typedef enum {
 //  Read from Bank 0, reg 0x44
 #define CUR_HAS_OBJECT                    0x04      // Bit 2 - 0000 0100
 #define CUR_NO_OBJECT                     0x80      // Bit 7 - 1000 0000
+
 
 // Values for Corners mode
 #define GESTURE_RANGE_MAX                 3712      // Gesture range max value (experimental)
@@ -563,7 +565,6 @@ class RevEng_PAJ7620
     /** @name Proxmity mode interface */
     /**@{*/
     //int getProximityDistance();     // Read an object's "proximity 255..0"
-
     /**@}*/
 
   private:

@@ -90,7 +90,8 @@ uint8_t RevEng_PAJ7620::begin(TwoWire *chosenWireHandle)
 
   delayMicroseconds(700);	            // Wait 700us for PAJ7620U2 to stabilize
                                       // Reason: see v0.8 of 7620 documentation
-  wireHandle->begin();
+  wireHandle->begin();                // Start the I2C bus via wire library
+
 
   /* There's two register banks (0 & 1) to be selected between.
    * BANK0 is where most data collection operations happen, so it's default.
@@ -258,6 +259,9 @@ void RevEng_PAJ7620::writeRegisterArray(const unsigned short array[], int arrayS
   }
   selectRegisterBank(BANK0);        // Guarantee parking in BANK0
 }
+
+
+//***************************************************************************************
 
 
 /**
@@ -515,6 +519,52 @@ void RevEng_PAJ7620::setNormalSpeed()
   writeRegister(PAJ7620_ADDR_R_IDLE_TIME_0, PAJ7620_NORMAL_SPEED);
   selectRegisterBank(BANK0);
 }
+=======
+/*
+void RevEng_PAJ7620::setGameMode()
+{
+*/
+  /*
+    NOTE: No version of the PixArt documentation says how to enable game mode
+      If you know, please let me know so we can get it added here
+      This code below comes from unknown sources, but was patched into various
+      forks of the Seeed version on GitHub.
+        -- Aaron S. Crandall <crandall@gonzaga.edu>
+  */
+   /*
+   * Setting normal mode or gaming mode at BANK1 register 0x65/0x66 R_IDLE_TIME[15:0]
+   * T = 256/System CLK = 32us, 
+   * Ex:
+   * Far Mode: 1 report time = (77+R_IDLE_TIME)T
+   * Report rate 120 fps:
+   * R_IDLE_TIME=1/(120*T)-77=183
+   * 
+   * Report rate 240 fps:
+   * R_IDLE_TIME=1/(240*T)-77=53
+   * 
+   * Near Mode: 1 report time = (112+R_IDLE_TIME)T
+   * 
+   * Report rate 120 fps:
+   * R_IDLE_TIME=1/(120*T)-120=148
+   * 
+   * Report rate 240 fps:
+   * R_IDLE_TIME=1/(240*T)-112=18
+   * 
+   */  
+  // Serial.println("Set up gaming mode.");
+  // paj7620SelectBank(BANK1);  //gesture flage reg in Bank1
+  // paj7620WriteReg(0x65, 0xB7); // far mode 120 fps
+  //paj7620WriteReg(0x65, 0x12);  // near mode 240 fps
+
+  // paj7620SelectBank(BANK0);  //gesture flage reg in Bank0
+
+/*
+  selectRegisterBank(BANK1);
+  writeRegister(0x65, 0x12);
+  selectRegisterBank(BANK0);
+}
+*/
+
 
 /**
  * Clear current gesture interrupt vectors without returning gesture value
@@ -635,7 +685,7 @@ Gesture RevEng_PAJ7620::readGesture()
         break;
 
       default:
-        getGesturesReg1(&data1);      // Bank 0 (Reg 0x44) has wave flag
+        getGesturesReg1(&data1);      // Bank 1 (Reg 0x44) has wave flag
         if (data1 == GES_WAVE_FLAG)
           { result = GES_WAVE; }
         break;

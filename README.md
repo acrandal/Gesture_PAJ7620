@@ -237,6 +237,7 @@ getCorner() returns a Corner enum. This enum has six values (and synonyms):
 
 Note: Width of middle is set by CORNERS_BUFFER_WIDTH_PCT from .h file
 
+
 ---
 
 ## Library History ##
